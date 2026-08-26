@@ -317,7 +317,13 @@ app.use((req, res, next) => {
 app.get('/health', (req, res) => res.json({ ok: true }));
 
 // Saytning o'zini shu manzilda ko'rsatamiz: http://localhost:3000
-app.use(express.static(path.join(__dirname, 'public')));
+// Statik fayllarni ildiz kataloqdan olish
+app.use(express.static(__dirname));
+
+// Bosh sahifaga kirganda HTML faylni ochish
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'kwezr-shop.html'));
+});
 
 app.post('/api/order', async (req, res) => {
   const order = req.body;
