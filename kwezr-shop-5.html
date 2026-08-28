@@ -1,0 +1,2522 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KWEZR — Zamonaviy kiyim do'koni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F6F1E4; --paper:#FBF8F0; --ink:#1A1613;
+    --indigo:#1B2A4A; --magenta:#C81D5E; --gold:#E8A93B;
+    --line: rgba(26,22,19,0.12);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{ background:var(--cream); color:var(--ink); font-family:'Inter', sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  h1,h2,h3,.display{ font-family:'Unbounded', sans-serif; letter-spacing:-0.01em; }
+  .mono{ font-family:'IBM Plex Mono', monospace; letter-spacing:0.02em;}
+  a{ color:inherit; text-decoration:none; }
+  img{ max-width:100%; display:block; }
+  button{ font-family:inherit; }
+  input, select{ font-family:'Inter'; }
+
+  .ikat-band{
+    background-image: repeating-linear-gradient(100deg,
+      var(--magenta) 0px, var(--magenta) 26px, var(--gold) 26px, var(--gold) 46px,
+      var(--indigo) 46px, var(--indigo) 78px, var(--cream) 78px, var(--cream) 96px);
+  }
+
+  header{ position:sticky; top:0; z-index:50; background:var(--paper); border-bottom:1px solid var(--line); }
+  .header-inner{ max-width:1240px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:16px 24px; gap:20px; flex-wrap:wrap; }
+  .logo{ font-size:26px; font-weight:900; letter-spacing:0.02em; flex:none; }
+  .logo span{ color:var(--magenta); }
+  nav.main-nav{ display:flex; gap:26px; }
+  nav.main-nav a{ font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.04em; opacity:0.85; transition:opacity .15s; }
+  nav.main-nav a:hover{ opacity:1; color:var(--magenta); }
+  .header-actions{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; justify-content:flex-end; }
+  .lang-switch{ display:flex; gap:2px; background:var(--cream); border-radius:999px; padding:3px; border:1px solid var(--line); }
+  .lang-btn{ background:none; border:none; cursor:pointer; font-family:'IBM Plex Mono'; font-size:11px; font-weight:600; padding:5px 9px; border-radius:999px; opacity:0.5; }
+  .lang-btn.active{ background:var(--ink); color:var(--paper); opacity:1; }
+  .icon-btn{ background:none; border:none; cursor:pointer; font-size:19px; color:var(--ink); position:relative; padding:4px; }
+  .cart-count{ position:absolute; top:-4px; right:-6px; background:var(--magenta); color:var(--paper); font-size:10px; font-weight:700; font-family:'IBM Plex Mono',monospace; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+  .search-input{ border:1px solid var(--line); background:var(--cream); border-radius:999px; padding:8px 16px; font-size:13px; width:220px; outline:none; transition:width .2s, border-color .2s; }
+  .search-input:focus{ border-color:var(--magenta); width:300px; }
+  .account-chip{ display:flex; align-items:center; gap:8px; cursor:pointer; padding:6px 12px 6px 6px; border-radius:999px; border:1px solid var(--line); background:var(--cream); font-size:13px; font-weight:600; }
+  .account-avatar{ width:24px; height:24px; border-radius:50%; background:var(--magenta); color:var(--paper); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; }
+
+  .hero{ position:relative; overflow:hidden; }
+  .hero-strip{ height:10px; }
+  .hero-inner{ max-width:1240px; margin:0 auto; padding:60px 24px 52px; display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center; }
+  .eyebrow{ font-family:'IBM Plex Mono', monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.14em; color:var(--magenta); font-weight:500; margin-bottom:18px; display:block; }
+  .hero h1{ font-size:clamp(34px, 5vw, 62px); line-height:0.98; font-weight:900; margin-bottom:22px; }
+  .hero h1 em{ font-style:normal; color:var(--magenta); }
+  .hero p{ font-size:16px; line-height:1.6; max-width:440px; opacity:0.8; margin-bottom:28px; }
+  .btn-row{ display:flex; gap:14px; }
+  .btn{ font-weight:600; font-size:14px; padding:14px 26px; border-radius:999px; cursor:pointer; border:2px solid var(--ink); transition:all .15s; }
+  .btn-primary{ background:var(--ink); color:var(--paper); }
+  .btn-primary:hover{ background:var(--magenta); border-color:var(--magenta); }
+  .btn-ghost{ background:transparent; color:var(--ink); }
+  .btn-ghost:hover{ background:var(--ink); color:var(--paper); }
+  .btn-block{ width:100%; text-align:center; }
+  .btn:disabled{ opacity:0.45; cursor:not-allowed; }
+
+  .hero-visual{ aspect-ratio:4/5; border-radius:20px; position:relative; overflow:hidden;
+    background: repeating-linear-gradient(115deg, var(--indigo) 0px, var(--indigo) 40px, var(--magenta) 40px, var(--magenta) 76px, var(--gold) 76px, var(--gold) 100px, #7A1943 100px, #7A1943 140px);
+    box-shadow:0 24px 50px -20px rgba(26,22,19,0.35); }
+  .hero-visual .tag{ position:absolute; bottom:20px; left:20px; background:var(--paper); padding:10px 16px; border-radius:12px; font-family:'IBM Plex Mono'; font-size:12px; font-weight:500; }
+  .hero-visual .hero-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .hero-visual .hero-price-tag{ position:absolute; bottom:20px; left:20px; background:var(--magenta); color:var(--paper); padding:11px 18px; border-radius:12px; font-family:'IBM Plex Mono'; font-size:14px; font-weight:600; display:none; box-shadow:0 10px 24px -10px rgba(0,0,0,0.4); }
+  .hero-visual .hero-price-tag.show{ display:block; }
+
+  /* ===== Hero slider ===== */
+  .hero-slider{ position:relative; overflow:hidden; }
+  .hero-track{ display:flex; width:300%; transition:transform .65s cubic-bezier(.65,0,.35,1); }
+  .hero-slide{ flex:none; width:33.3333%; }
+  .hero-visual.s2{ background: repeating-linear-gradient(115deg, var(--magenta) 0px, var(--magenta) 40px, var(--gold) 40px, var(--gold) 76px, var(--indigo) 76px, var(--indigo) 100px, #7A1943 100px, #7A1943 140px); }
+  .hero-visual.s3{ background: repeating-linear-gradient(115deg, var(--gold) 0px, var(--gold) 40px, var(--indigo) 40px, var(--indigo) 76px, var(--magenta) 76px, var(--magenta) 100px, #7A1943 100px, #7A1943 140px); }
+  .hero-arrow{ position:absolute; top:50%; transform:translateY(-50%); z-index:10; width:46px; height:46px; border-radius:50%; border:1.5px solid var(--line); background:rgba(251,248,240,0.9); cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; transition:all .15s; }
+  .hero-arrow:hover{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  .hero-arrow.prev{ left:24px; }
+  .hero-arrow.next{ right:24px; }
+  .hero-dots{ position:absolute; bottom:24px; left:50%; transform:translateX(-50%); z-index:10; display:flex; gap:8px; }
+  .hero-dot{ width:9px; height:9px; border-radius:50%; background:rgba(26,22,19,0.25); border:none; cursor:pointer; padding:0; transition:all .2s; }
+  .hero-dot.active{ background:var(--magenta); width:26px; border-radius:5px; }
+  @media (max-width:640px){ .hero-arrow{ width:36px; height:36px; font-size:13px; } .hero-arrow.prev{ left:10px; } .hero-arrow.next{ right:10px; } }
+
+  .cat-section{ max-width:1240px; margin:0 auto; padding:8px 24px 32px; }
+  .cat-scroll{ display:flex; gap:10px; overflow-x:auto; padding-bottom:6px; }
+  .pill{ flex:none; padding:10px 20px; border-radius:999px; border:1.5px solid var(--line); font-size:13px; font-weight:600; cursor:pointer; background:var(--paper); transition:all .15s; white-space:nowrap; }
+  .pill.active, .pill:hover{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+
+  .section-head{ max-width:1240px; margin:0 auto; padding:0 24px; display:flex; align-items:baseline; justify-content:space-between; margin-bottom:20px; }
+  .section-head h2{ font-size:26px; font-weight:700; }
+  .section-head .count{ font-family:'IBM Plex Mono'; font-size:12px; opacity:0.55; }
+
+  .grid{ max-width:1240px; margin:0 auto; padding:0 24px 70px; display:grid; grid-template-columns:repeat(4, 1fr); gap:22px; }
+  .card{ background:var(--paper); border-radius:16px; overflow:hidden; border:1px solid var(--line); transition:transform .18s, box-shadow .18s; display:flex; flex-direction:column; }
+  .card:hover{ transform:translateY(-5px); box-shadow:0 18px 34px -18px rgba(26,22,19,0.28); }
+  .card-media{ aspect-ratio:3/4; position:relative; display:flex; align-items:center; justify-content:center; font-size:52px; overflow:hidden; }
+  .card-media-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .badge{ position:absolute; top:12px; left:12px; font-family:'IBM Plex Mono'; font-size:10px; font-weight:600; letter-spacing:0.04em; padding:5px 10px; border-radius:999px; background:var(--magenta); color:var(--paper); text-transform:uppercase; }
+  .fav-btn{ position:absolute; top:10px; right:10px; background:rgba(251,248,240,0.85); border:none; width:32px; height:32px; border-radius:50%; cursor:pointer; font-size:15px; }
+  .card-body{ padding:16px; display:flex; flex-direction:column; gap:6px; flex:1; }
+  .card-cat{ font-size:11px; text-transform:uppercase; letter-spacing:0.06em; opacity:0.5; font-weight:600; }
+  .card-name{ font-size:15px; font-weight:600; line-height:1.3; }
+  .price-row{ display:flex; align-items:center; gap:8px; margin-top:2px; }
+  .price{ font-family:'IBM Plex Mono'; font-weight:500; font-size:15px; }
+  .old-price{ font-family:'IBM Plex Mono'; font-size:12px; text-decoration:line-through; opacity:0.4; }
+  .add-btn{ margin-top:10px; width:100%; padding:11px; border-radius:10px; border:none; background:var(--ink); color:var(--paper); font-weight:600; font-size:13px; cursor:pointer; transition:background .15s; }
+  .add-btn:hover{ background:var(--magenta); }
+  .add-btn.added{ background:var(--gold); color:var(--ink); }
+  .add-btn:disabled{ background:var(--line); color:var(--ink); opacity:0.55; cursor:not-allowed; }
+  .add-btn.shake{ animation:shakeBtn .4s; }
+  @keyframes shakeBtn{ 0%,100%{transform:translateX(0);} 25%{transform:translateX(-4px);} 75%{transform:translateX(4px);} }
+  .stock-note{ font-family:'IBM Plex Mono'; font-size:11px; margin-top:2px; }
+  .stock-note.low{ color:var(--magenta); }
+  .stock-note.out{ color:var(--magenta); opacity:0.7; }
+  .stock-note.ok{ opacity:0.5; }
+  .badge.badge-out{ background:var(--ink); }
+
+  .btn.subscribed{ opacity:0.85; }
+  .banner{ max-width:1240px; margin:0 auto 70px; padding:0 24px; }
+  .banner-inner{ border-radius:22px; padding:50px 44px; position:relative; overflow:hidden; background:var(--indigo); color:var(--paper); display:flex; align-items:center; justify-content:space-between; gap:30px; }
+  .banner-inner h3{ font-size:28px; max-width:480px; line-height:1.15; }
+  .banner-inner p{ opacity:0.75; font-size:14px; margin-top:10px; max-width:420px; }
+
+  footer{ border-top:1px solid var(--line); padding:50px 24px 30px; }
+  .footer-inner{ max-width:1240px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:30px; }
+  .footer-inner h4{ font-size:13px; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:14px; opacity:0.6; }
+  .footer-inner ul{ list-style:none; display:flex; flex-direction:column; gap:9px; }
+  .footer-inner ul a{ font-size:13.5px; opacity:0.85; }
+  .footer-inner ul a:hover{ opacity:1; color:var(--magenta); }
+  .footer-bottom{ max-width:1240px; margin:36px auto 0; padding-top:20px; border-top:1px solid var(--line); display:flex; justify-content:space-between; font-size:12px; opacity:0.55; font-family:'IBM Plex Mono'; }
+
+  /* ===== Side panel (cart) ===== */
+  .side-panel{ position:fixed; top:0; right:-400px; width:380px; max-width:92vw; height:100%; background:var(--paper); box-shadow:-10px 0 30px rgba(0,0,0,0.15); z-index:100; transition:right .28s ease; display:flex; flex-direction:column; padding:24px; }
+  .side-panel.open{ right:0; }
+  .panel-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; }
+  .panel-head h3{ font-size:18px; }
+  .close-btn{ background:none; border:none; font-size:20px; cursor:pointer; }
+  .cart-items{ flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:14px; }
+  .cart-item{ display:flex; gap:12px; align-items:center; border-bottom:1px solid var(--line); padding-bottom:12px; }
+  .cart-item .thumb{ width:52px; height:52px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:24px; flex:none; }
+  .cart-item .info{ flex:1; }
+  .cart-item .info .n{ font-size:13px; font-weight:600; }
+  .cart-item .info .p{ font-family:'IBM Plex Mono'; font-size:12px; opacity:0.6; }
+  .remove-item{ background:none; border:none; cursor:pointer; opacity:0.4; font-size:16px; }
+  .remove-item:hover{ opacity:1; color:var(--magenta); }
+  .empty-note{ opacity:0.5; font-size:13px; padding:30px 0; text-align:center; }
+  .promo-box{ padding-top:12px; border-top:1px solid var(--line); }
+  .promo-row{ display:flex; gap:8px; align-items:center; }
+  .promo-input{ flex:1; border:1px solid var(--line); background:var(--cream); border-radius:10px; padding:9px 12px; font-size:13px; outline:none; font-family:'IBM Plex Mono'; text-transform:uppercase; }
+  .promo-input:focus{ border-color:var(--magenta); }
+  .promo-chip{ flex:1; background:var(--cream); border:1px dashed var(--gold); border-radius:10px; padding:9px 12px; font-family:'IBM Plex Mono'; font-size:12.5px; font-weight:600; color:var(--indigo); }
+  .region-box{ padding-top:10px; }
+  .region-box-label{ display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.04em; opacity:0.55; font-weight:600; margin-bottom:6px; }
+  .region-select{ width:100%; border:1px solid var(--line); background:var(--cream); border-radius:10px; padding:9px 12px; font-size:13px; font-family:'Inter'; outline:none; cursor:pointer; }
+  .region-select:focus{ border-color:var(--magenta); }
+  .cart-total{ display:flex; justify-content:space-between; font-weight:700; padding:16px 0; border-top:1px solid var(--line); margin-top:10px; }
+  .overlay{ position:fixed; inset:0; background:rgba(26,22,19,0.4); z-index:90; opacity:0; pointer-events:none; transition:opacity .25s; }
+  .overlay.show{ opacity:1; pointer-events:auto; }
+
+  /* ===== Modal (account / checkout) ===== */
+  .modal-wrap{ position:fixed; inset:0; z-index:110; display:none; align-items:center; justify-content:center; padding:20px; }
+  .modal-wrap.show{ display:flex; }
+  .modal{ background:var(--paper); border-radius:20px; width:420px; max-width:100%; max-height:88vh; overflow-y:auto; padding:30px; position:relative; }
+  .modal h3{ font-size:20px; margin-bottom:4px; }
+  .modal .sub{ font-size:13px; opacity:0.6; margin-bottom:20px; }
+  .modal-close{ position:absolute; top:18px; right:18px; background:none; border:none; font-size:18px; cursor:pointer; }
+  .field{ margin-bottom:14px; }
+  .field label{ display:block; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.04em; opacity:0.6; margin-bottom:6px; }
+  .field input, .field select{ width:100%; padding:12px 14px; border:1.5px solid var(--line); border-radius:10px; font-size:14px; background:var(--cream); outline:none; }
+  .field input:focus, .field select:focus{ border-color:var(--magenta); }
+  .field-row{ display:flex; gap:10px; }
+  .tabs{ display:flex; gap:8px; margin-bottom:20px; background:var(--cream); border-radius:999px; padding:4px; }
+  .tab-btn{ flex:1; padding:9px; border:none; background:none; border-radius:999px; font-weight:600; font-size:13px; cursor:pointer; }
+  .tab-btn.active{ background:var(--ink); color:var(--paper); }
+  .form-view{ display:none; }
+  .form-view.active{ display:block; }
+  .error-msg{ color:var(--magenta); font-size:12.5px; margin-top:-6px; margin-bottom:12px; display:none; }
+  .error-msg.show{ display:block; }
+  .pay-options{ display:flex; flex-direction:column; gap:10px; margin-bottom:18px; }
+  .pay-opt{ display:flex; align-items:center; gap:10px; border:1.5px solid var(--line); padding:13px 14px; border-radius:12px; cursor:pointer; font-size:14px; font-weight:600; }
+  .pay-opt.selected{ border-color:var(--magenta); background:rgba(200,29,94,0.06); }
+  .steps-track{ display:flex; align-items:center; gap:6px; margin-bottom:22px; }
+  .step-dot{ flex:1; height:4px; border-radius:2px; background:var(--line); }
+  .step-dot.active{ background:var(--magenta); }
+  .confirm-icon{ width:60px; height:60px; border-radius:50%; background:var(--gold); display:flex; align-items:center; justify-content:center; font-size:28px; margin:6px auto 18px; }
+  .order-row{ display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--line); font-size:13px; }
+  .account-menu{ position:absolute; top:60px; right:24px; background:var(--paper); border:1px solid var(--line); border-radius:14px; box-shadow:0 14px 30px -12px rgba(0,0,0,0.25); width:200px; z-index:105; display:none; overflow:hidden; }
+  .account-menu.show{ display:block; }
+  .account-menu button{ display:block; width:100%; text-align:left; padding:13px 16px; background:none; border:none; font-size:13.5px; font-weight:600; cursor:pointer; }
+  .account-menu button:hover{ background:var(--cream); }
+  .order-card{ border:1px solid var(--line); border-radius:12px; padding:14px; margin-bottom:12px; }
+  .order-card .oid{ font-family:'IBM Plex Mono'; font-size:11px; opacity:0.5; }
+
+  /* ===== Size / color pickers on card ===== */
+  .swatch-row{ display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-top:2px; }
+  .swatch-label{ font-size:10px; text-transform:uppercase; letter-spacing:0.05em; opacity:0.5; font-weight:600; width:100%; }
+  .size-pill{ font-family:'IBM Plex Mono'; font-size:11px; font-weight:600; border:1.5px solid var(--line); background:var(--paper); border-radius:7px; padding:4px 7px; cursor:pointer; line-height:1; }
+  .size-pill.selected{ border-color:var(--ink); background:var(--ink); color:var(--paper); }
+  .color-dot{ width:18px; height:18px; border-radius:50%; border:2px solid transparent; cursor:pointer; box-shadow:inset 0 0 0 1px rgba(0,0,0,0.15); padding:0; }
+  .color-dot.selected{ border-color:var(--ink); box-shadow:inset 0 0 0 1px rgba(0,0,0,0.15), 0 0 0 2px var(--paper); }
+  .card-name-link{ cursor:pointer; }
+  .card-name-link:hover{ color:var(--magenta); }
+  .qv-trigger{ position:absolute; bottom:10px; right:10px; background:rgba(251,248,240,0.9); border:none; width:32px; height:32px; border-radius:50%; cursor:pointer; font-size:14px; opacity:0; transition:opacity .15s; }
+  .card:hover .qv-trigger{ opacity:1; }
+
+  /* ===== Quick view modal ===== */
+  .qv-modal{ width:640px; padding:0; overflow:hidden; }
+  .qv-body{ display:grid; grid-template-columns:1fr 1fr; }
+  .qv-media{ aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; font-size:80px; position:relative; overflow:hidden; }
+  .qv-info{ padding:28px; display:flex; flex-direction:column; gap:4px; }
+  .qv-info .card-cat{ font-size:11px; }
+  .qv-info h3{ font-size:19px; margin-top:2px; }
+  .qv-info .price-row{ margin:8px 0 14px; }
+  .qv-section{ margin-bottom:16px; }
+  .qv-qty{ display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+  .qty-btn{ width:32px; height:32px; border-radius:8px; border:1.5px solid var(--line); background:var(--paper); font-size:16px; font-weight:700; cursor:pointer; }
+  @media (max-width:600px){ .qv-modal{ width:100%; } .qv-body{ grid-template-columns:1fr; } .qv-media{ aspect-ratio:16/9; font-size:60px; } }
+
+  /* ===== Admin panel ===== */
+  .admin-modal{ width:960px; max-width:96vw; padding:0; overflow:hidden; display:flex; flex-direction:column; max-height:90vh; }
+  .admin-head{ display:flex; align-items:center; justify-content:space-between; padding:22px 28px 0; }
+  .admin-tabs{ display:flex; gap:6px; padding:18px 28px 0; border-bottom:1px solid var(--line); }
+  .admin-tab-btn{ background:none; border:none; padding:10px 4px; margin-right:18px; font-weight:600; font-size:13.5px; cursor:pointer; opacity:0.55; border-bottom:2px solid transparent; }
+  .admin-tab-btn.active{ opacity:1; color:var(--magenta); border-color:var(--magenta); }
+  .admin-body{ padding:22px 28px 28px; overflow-y:auto; flex:1; }
+  .admin-toolbar{ display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+  .btn-sm{ padding:9px 16px; font-size:12.5px; }
+  .admin-table{ width:100%; border-collapse:collapse; font-size:13px; }
+  .admin-table th{ text-align:left; font-size:10.5px; text-transform:uppercase; letter-spacing:0.04em; opacity:0.55; padding:8px 8px; border-bottom:1.5px solid var(--line); }
+  .admin-table td{ padding:10px 8px; border-bottom:1px solid var(--line); vertical-align:middle; }
+  .admin-table tr:last-child td{ border-bottom:none; }
+  .row-icon{ width:26px; height:26px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:14px; }
+  .icon-action{ background:none; border:none; cursor:pointer; font-size:14px; opacity:0.6; padding:4px; }
+  .icon-action:hover{ opacity:1; }
+  .mini-badge{ font-family:'IBM Plex Mono'; font-size:10px; font-weight:600; padding:3px 8px; border-radius:999px; background:var(--cream); }
+  .mini-badge.admin-yes{ background:var(--gold); }
+  .status-select{ font-family:'Inter'; font-size:12px; font-weight:600; padding:6px 8px; border-radius:8px; border:1.5px solid var(--line); background:var(--cream); }
+  .admin-form{ background:var(--cream); border-radius:14px; padding:18px; margin-bottom:18px; display:none; }
+  .admin-form.show{ display:block; }
+  .admin-form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px 14px; }
+  .admin-form-grid .field{ margin-bottom:0; }
+  .admin-settings-form{ max-width:360px; }
+  .field-full{ grid-column:1/-1; }
+  .color-check-list{ display:flex; flex-wrap:wrap; gap:8px; }
+  .color-upload-item{ display:flex; flex-direction:column; gap:8px; background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:8px 10px; }
+  .color-check{ display:flex; align-items:center; gap:6px; font-size:12px; font-weight:600; cursor:pointer; }
+  .color-check input{ width:14px; height:14px; }
+  .color-check .dot{ width:14px; height:14px; border-radius:50%; box-shadow:inset 0 0 0 1px rgba(0,0,0,0.15); }
+  .color-image-upload{ display:flex; align-items:center; gap:8px; }
+  .color-image-upload input[type=file]{ font-size:11px; max-width:120px; }
+  .mini-preview{ width:44px; height:44px; border-radius:8px; object-fit:cover; flex:none; }
+  .form-actions{ display:flex; gap:10px; margin-top:14px; }
+  .empty-admin{ text-align:center; opacity:0.5; font-size:13px; padding:40px 0; }
+  .order-detail-row td{ padding:0 8px 14px; }
+  .order-detail-box{ background:var(--cream); border-radius:10px; padding:10px 12px; }
+  .expand-toggle{ background:none; border:none; cursor:pointer; font-size:13px; opacity:0.6; }
+
+  /* ===== Receipt-based payment ===== */
+  .pay-card-info{ background:var(--cream); border:1.5px dashed var(--line); border-radius:12px; padding:14px 16px; margin-bottom:16px; }
+  .pay-card-info .num{ font-family:'IBM Plex Mono'; font-size:18px; font-weight:600; letter-spacing:0.03em; }
+  .pay-card-info .owner{ font-size:12.5px; opacity:0.65; margin-top:4px; }
+  .receipt-upload-box{ border:1.5px dashed var(--line); border-radius:12px; padding:16px; text-align:center; cursor:pointer; transition:border-color .15s; }
+  .receipt-upload-box:hover{ border-color:var(--magenta); }
+  .receipt-upload-box input[type=file]{ display:none; }
+  .receipt-upload-label{ font-size:13px; font-weight:600; opacity:0.75; }
+  .receipt-preview-wrap{ margin-top:12px; text-align:center; }
+  .receipt-preview{ max-width:180px; max-height:220px; border-radius:12px; border:1px solid var(--line); margin:0 auto; }
+  .receipt-remove{ display:block; margin:8px auto 0; background:none; border:none; color:var(--magenta); font-size:12px; font-weight:600; cursor:pointer; }
+  .receipt-thumb{ width:38px; height:38px; border-radius:8px; object-fit:cover; cursor:pointer; border:1px solid var(--line); }
+  .mini-badge.pending{ background:var(--gold); }
+  .mini-badge.confirmed{ background:#6B7A4F; color:var(--paper); }
+  .receipt-modal img{ width:100%; border-radius:12px; display:block; }
+  .fav-btn.active{ color:var(--magenta); }
+  .notif-dropdown{ position:absolute; top:60px; right:0; background:var(--paper); border:1px solid var(--line); border-radius:14px; box-shadow:0 14px 30px -12px rgba(0,0,0,0.25); width:290px; z-index:105; display:none; max-height:360px; overflow-y:auto; }
+  .notif-dropdown.show{ display:block; }
+  .notif-item{ padding:12px 16px; border-bottom:1px solid var(--line); font-size:13px; line-height:1.4; }
+  .notif-item:last-child{ border-bottom:none; }
+  .notif-item.unread{ background:rgba(200,29,94,0.05); }
+  .notif-date{ font-size:10.5px; opacity:0.5; margin-top:4px; font-family:'IBM Plex Mono',monospace; }
+  .notif-empty{ padding:26px 16px; text-align:center; font-size:13px; opacity:0.5; }
+
+  @media (max-width:880px){
+    nav.main-nav{ display:none; }
+    .hero-inner{ grid-template-columns:1fr; }
+    .grid{ grid-template-columns:repeat(2,1fr); }
+    .footer-inner{ grid-template-columns:1fr 1fr; }
+    .banner-inner{ flex-direction:column; align-items:flex-start; }
+    .search-input{ display:none; }
+    .header-inner{ padding:12px 14px; gap:8px; }
+    .logo{ font-size:20px; flex:none; }
+    .header-actions{ min-width:0; gap:8px; }
+    .header-actions{ gap:4px; flex-wrap:nowrap; }
+    .lang-switch{ padding:2px; }
+    .lang-btn{ padding:3px 5px; font-size:9px; }
+    .icon-btn{ font-size:16px; padding:2px; }
+  }
+  @media (max-width:480px){
+    .lang-switch{ display:none; }
+    .header-inner{ padding:10px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="logo" href="#" onclick="event.preventDefault()">KWEZR<span>.</span></a>
+    <nav class="main-nav">
+      <a href="#" data-i18n="nav_new" onclick="navGo(event,'barchasi')">Yangi</a>
+      <a href="#" data-i18n="nav_women" onclick="navGo(event,'koylak')">Ayollar</a>
+      <a href="#" data-i18n="nav_men" onclick="navGo(event,'kurtka')">Erkaklar</a>
+      <a href="#" data-i18n="nav_shoes" onclick="navGo(event,'krossovka')">Krossovkalar</a>
+      <a href="#" data-i18n="nav_sale" onclick="navGo(event,'sale')">Chegirma</a>
+    </nav>
+    <div class="header-actions">
+      <div class="lang-switch">
+        <button class="lang-btn" data-lang="uz" onclick="setLang('uz')">UZ</button>
+        <button class="lang-btn" data-lang="ru" onclick="setLang('ru')">RU</button>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+      </div>
+      <input class="search-input" id="searchInput" data-i18n-ph="search_ph" placeholder="Qidirish..." oninput="handleSearchInput(this.value)" />
+      <button class="icon-btn" onclick="togglePanel('favPanel', true)">♡<span class="cart-count" id="favCount" style="display:none;">0</span></button>
+      <div id="notifArea" style="position:relative;"></div>
+      <div id="accountArea" style="position:relative;"></div>
+      <button class="icon-btn" onclick="togglePanel('cartPanel', true)">
+        🛍<span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="ikat-band hero-strip"></div>
+  <div class="hero-slider" id="heroSlider" onmouseenter="pauseHeroAutoplay()" onmouseleave="resumeHeroAutoplay()">
+    <div class="hero-track" id="heroTrack">
+      <div class="hero-slide">
+        <div class="hero-inner">
+          <div>
+            <span class="eyebrow" id="heroEyebrow1" data-i18n="hero_eyebrow">Yozgi to'plam · 2026</span>
+            <h1><span data-i18n="hero_title_1">SHARQONA</span><br><span data-i18n="hero_title_2">NAQSH,</span> <em data-i18n="hero_title_3">ZAMONAVIY</em><br><em data-i18n="hero_title_4">SHAKL</em></h1>
+            <p data-i18n="hero_desc">Kwezr — an'anaviy o'zbek ikat naqshlaridan ilhomlangan zamonaviy kiyim brendi.</p>
+            <div class="btn-row">
+              <button class="btn btn-primary" data-i18n="btn_shop" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Xarid qilish</button>
+              <button class="btn btn-ghost" data-i18n="btn_collection">To'plamni ko'rish</button>
+            </div>
+          </div>
+          <div class="hero-visual" id="heroVisual1">
+            <img class="hero-img" id="heroImg1" style="display:none;">
+            <span class="tag" id="heroTag1">№ 001 — Ikat Drop</span>
+            <span class="hero-price-tag" id="heroPrice1"></span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-slide">
+        <div class="hero-inner">
+          <div>
+            <span class="eyebrow" id="heroEyebrow2" data-i18n="hero2_eyebrow">Chegirma · -30%</span>
+            <h1><span data-i18n="hero2_title_1">HAFTALIK</span><br><span data-i18n="hero2_title_2">CHEGIRMA,</span> <em data-i18n="hero2_title_3">CHEKLANGAN</em><br><em data-i18n="hero2_title_4">VAQT</em></h1>
+            <p data-i18n="hero2_desc">Tanlangan mahsulotlarga -30% gacha chegirma. Faqat shu hafta amal qiladi.</p>
+            <div class="btn-row">
+              <button class="btn btn-primary" data-i18n="btn_shop" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Xarid qilish</button>
+              <button class="btn btn-ghost" data-i18n="btn_collection">To'plamni ko'rish</button>
+            </div>
+          </div>
+          <div class="hero-visual s2" id="heroVisual2">
+            <img class="hero-img" id="heroImg2" style="display:none;">
+            <span class="tag" id="heroTag2">№ 002 — Sale Drop</span>
+            <span class="hero-price-tag" id="heroPrice2"></span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-slide">
+        <div class="hero-inner">
+          <div>
+            <span class="eyebrow" id="heroEyebrow3" data-i18n="hero3_eyebrow">Yangi kolleksiya</span>
+            <h1><span data-i18n="hero3_title_1">QIShKI</span><br><span data-i18n="hero3_title_2">KIYIMLAR,</span> <em data-i18n="hero3_title_3">ILIQ</em><br><em data-i18n="hero3_title_4">USLUB</em></h1>
+            <p data-i18n="hero3_desc">Yangi mavsum uchun tayyorlangan iliq va zamonaviy kiyimlar to'plami bilan tanishing.</p>
+            <div class="btn-row">
+              <button class="btn btn-primary" data-i18n="btn_shop" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Xarid qilish</button>
+              <button class="btn btn-ghost" data-i18n="btn_collection">To'plamni ko'rish</button>
+            </div>
+          </div>
+          <div class="hero-visual s3" id="heroVisual3">
+            <img class="hero-img" id="heroImg3" style="display:none;">
+            <span class="tag" id="heroTag3">№ 003 — Winter Drop</span>
+            <span class="hero-price-tag" id="heroPrice3"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="hero-arrow prev" onclick="heroPrev()" aria-label="Prev">←</button>
+    <button class="hero-arrow next" onclick="heroNext()" aria-label="Next">→</button>
+    <div class="hero-dots" id="heroDots">
+      <button class="hero-dot active" onclick="heroGoTo(0)"></button>
+      <button class="hero-dot" onclick="heroGoTo(1)"></button>
+      <button class="hero-dot" onclick="heroGoTo(2)"></button>
+    </div>
+  </div>
+</section>
+
+<div class="cat-section">
+  <div class="cat-scroll" id="catScroll">
+    <button class="pill active" data-cat="barchasi" data-i18n="cat_all">Barchasi</button>
+    <button class="pill" data-cat="koylak" data-i18n="cat_koylak">Ko'ylaklar</button>
+    <button class="pill" data-cat="kurtka" data-i18n="cat_kurtka">Kurtka & Palto</button>
+    <button class="pill" data-cat="krossovka" data-i18n="cat_krossovka">Krossovkalar</button>
+    <button class="pill" data-cat="shim" data-i18n="cat_shim">Shim & Jinsi</button>
+    <button class="pill" data-cat="aksessuar" data-i18n="cat_aksessuar">Aksessuarlar</button>
+    <button class="pill" data-cat="gym" data-i18n="cat_gym">Gym</button>
+    <button class="pill" data-cat="oversize" data-i18n="cat_oversize">Oversize</button>
+  </div>
+</div>
+
+<div class="section-head" id="shop">
+  <h2 data-i18n="bestsellers">Bestsellerlar</h2>
+  <span class="count" id="resultCount">12</span>
+</div>
+<div class="grid" id="productGrid"></div>
+
+<div class="banner">
+  <div class="banner-inner ikat-band">
+    <div>
+      <h3 data-i18n="banner_title">Obuna oling — bir yilga bepul yetkazib berish</h3>
+      <p data-i18n="banner_desc">Obuna bo'ling va 12 oy davomida buyurtmalaringiz bepul yetkazilsin.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+      <button class="btn btn-primary" id="subscribeBtn" style="background:var(--paper); color:var(--ink); border-color:var(--paper);" onclick="toggleSubscription()">Obuna bo'lish</button>
+      <span class="mono" id="subDaysNote" style="font-size:11px; opacity:0.85;"></span>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="logo" style="margin-bottom:10px;">KWEZR<span>.</span></div>
+      <p style="font-size:13px; opacity:0.65; max-width:260px; line-height:1.5;" data-i18n="footer_desc">Toshkentdan butun dunyoga.</p>
+    </div>
+    <div><h4 data-i18n="footer_shop">Do'kon</h4>
+      <ul><li><a href="#" data-i18n="nav_women" onclick="navGo(event,'koylak')">Ayollar</a></li><li><a href="#" data-i18n="nav_men" onclick="navGo(event,'kurtka')">Erkaklar</a></li><li><a href="#" data-i18n="nav_new" onclick="navGo(event,'barchasi')">Yangi</a></li><li><a href="#" data-i18n="nav_sale" onclick="navGo(event,'sale')">Chegirma</a></li></ul>
+    </div>
+    <div><h4 data-i18n="footer_help">Yordam</h4>
+      <ul><li><a href="#" onclick="event.preventDefault()">Yetkazib berish</a></li><li><a href="#" onclick="event.preventDefault()">Qaytarish</a></li><li><a href="#" onclick="event.preventDefault()">O'lcham jadvali</a></li><li><a href="https://t.me/kwezrshopbot" target="_blank" rel="noopener">Bog'lanish</a></li></ul>
+    </div>
+    <div><h4 data-i18n="footer_company">Kompaniya</h4>
+      <ul><li><a href="#" onclick="event.preventDefault()">Biz haqimizda</a></li><li><a href="https://t.me/kwezrshopbot" target="_blank" rel="noopener">Telegram</a></li><li><a href="#" onclick="event.preventDefault()">Instagram</a></li><li><a href="#" onclick="event.preventDefault()">Karyera</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 KWEZR</span><span>Demo namuna</span></div>
+</footer>
+
+<div class="overlay" id="overlay" onclick="closeAll()"></div>
+
+<!-- Cart panel -->
+<div class="side-panel" id="cartPanel">
+  <div class="panel-head"><h3 data-i18n="cart_title">Savat</h3><button class="close-btn" onclick="togglePanel('cartPanel', false)">✕</button></div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="promo-box" id="promoBox">
+    <div class="promo-row" id="promoInputRow">
+      <input id="promoInput" class="promo-input" data-i18n-ph="promo_placeholder" placeholder="Promokod" onkeydown="if(event.key==='Enter'){ event.preventDefault(); applyPromoCode(); }">
+      <button class="btn btn-ghost btn-sm" onclick="applyPromoCode()" data-i18n="apply_promo_btn">Qo'llash</button>
+    </div>
+    <div class="promo-row" id="promoAppliedRow" style="display:none;">
+      <span class="promo-chip" id="promoChipText"></span>
+      <button class="remove-item" onclick="removePromo()">✕</button>
+    </div>
+    <div class="error-msg" id="promoError"></div>
+  </div>
+  <div class="cart-total" style="border-top:none; padding-bottom:0;"><span data-i18n="subtotal_label">Mahsulotlar</span><span id="cartSubtotal" class="mono">0 so'm</span></div>
+  <div class="cart-total" id="cartDiscountRow" style="padding-top:6px; display:none;"><span data-i18n="discount_label">Chegirma</span><span id="cartDiscount" class="mono">0 so'm</span></div>
+  <div class="region-box" id="cartRegionBox">
+    <label class="region-box-label" data-i18n="delivery_region_label">Yetkazib berish hududi</label>
+    <div id="cartRegionSelectWrap"></div>
+  </div>
+  <div class="cart-total" style="padding-top:6px;"><span data-i18n="delivery_fee_label">Yetkazib berish</span><span id="cartDelivery" class="mono">0 so'm</span></div>
+  <div class="cart-total"><span data-i18n="cart_total">Jami</span><span id="cartTotal" class="mono">0 so'm</span></div>
+  <button class="btn btn-primary btn-block" data-i18n="checkout_btn" onclick="startCheckout()">Buyurtma berish</button>
+</div>
+
+<div class="side-panel" id="favPanel">
+  <div class="panel-head"><h3 data-i18n="favorites_title">Sevimlilar</h3><button class="close-btn" onclick="togglePanel('favPanel', false)">✕</button></div>
+  <div class="cart-items" id="favItems"></div>
+</div>
+
+<!-- Account modal -->
+<div class="modal-wrap" id="accountModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAll()">✕</button>
+    <div class="tabs">
+      <button class="tab-btn active" id="tabLogin" onclick="switchAuthTab('login')" data-i18n="login">Kirish</button>
+      <button class="tab-btn" id="tabRegister" onclick="switchAuthTab('register')" data-i18n="register">Ro'yxatdan o'tish</button>
+    </div>
+    <div class="form-view active" id="loginView">
+      <h3 data-i18n="login">Kirish</h3>
+      <p class="sub" data-i18n="login">Hisobingizga kiring.</p>
+      <div class="field"><label data-i18n="phone_label">Telefon raqam</label><input id="loginPhone" placeholder="+998 90 123 45 67"></div>
+      <div class="field"><label data-i18n="password_label">Parol</label><input id="loginPass" type="password" placeholder="••••••"></div>
+      <div class="error-msg" id="loginError"></div>
+      <button class="btn btn-primary btn-block" data-i18n="login_btn" onclick="doLogin()">Kirish</button>
+    </div>
+    <div class="form-view" id="registerView">
+      <h3 data-i18n="register">Ro'yxatdan o'tish</h3>
+      <p class="sub" data-i18n="register">Yangi hisob yarating.</p>
+      <div class="field"><label data-i18n="name_label">Ism</label><input id="regName" placeholder="Ismingiz"></div>
+      <div class="field"><label data-i18n="phone_label">Telefon raqam</label><input id="regPhone" placeholder="+998 90 123 45 67"></div>
+      <div class="field"><label data-i18n="password_label">Parol</label><input id="regPass" type="password" placeholder="••••••"></div>
+      <div class="error-msg" id="regError"></div>
+      <button class="btn btn-primary btn-block" data-i18n="register_btn" onclick="doRegister()">Ro'yxatdan o'tish</button>
+    </div>
+  </div>
+</div>
+
+<!-- Checkout modal -->
+<div class="modal-wrap" id="checkoutModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAll()">✕</button>
+    <div class="steps-track"><div class="step-dot active" id="dot1"></div><div class="step-dot" id="dot2"></div><div class="step-dot" id="dot3"></div></div>
+
+    <div class="form-view active" id="stepDelivery">
+      <h3 data-i18n="step_delivery">Yetkazib berish</h3>
+      <p class="sub">&nbsp;</p>
+      <div class="field"><label data-i18n="name_label">Ism</label><input id="dName"></div>
+      <div class="field"><label data-i18n="phone_label">Telefon raqam</label><input id="dPhone"></div>
+      <div class="field"><label data-i18n="delivery_region_label">Yetkazib berish hududi</label><div id="dRegionSelectWrap"></div></div>
+      <div class="field"><label data-i18n="address_label">Manzil</label><input id="dAddress" placeholder="Toshkent, ..."></div>
+      <div class="error-msg" id="deliveryError"></div>
+      <button class="btn btn-primary btn-block" data-i18n="continue_btn" onclick="goToPayment()">Davom etish</button>
+    </div>
+
+    <div class="form-view" id="stepPayment">
+      <h3 data-i18n="step_payment">To'lov</h3>
+      <p class="sub" data-i18n="receipt_instructions">Quyidagi karta raqamiga ko'rsatilgan summani o'tkazing, so'ng to'lov chekining skrinshoti yoki rasmini yuklang.</p>
+      <div class="pay-card-info">
+        <div class="num mono" id="payCardNumber"></div>
+        <div class="owner" id="payCardOwner"></div>
+      </div>
+      <div id="paySummary" style="margin:14px 0; font-size:13px;"></div>
+      <div class="field">
+        <label data-i18n="upload_receipt_label">To'lov chekini yuklang (skrinshot yoki rasm)</label>
+        <label class="receipt-upload-box" id="receiptUploadBox" for="receiptInput">
+          <span class="receipt-upload-label" id="receiptUploadText" data-i18n="upload_receipt_label">To'lov chekini yuklang (skrinshot yoki rasm)</span>
+          <input type="file" id="receiptInput" accept="image/*" onchange="handleReceiptUpload(event)">
+        </label>
+        <div class="receipt-preview-wrap" id="receiptPreviewWrap" style="display:none;">
+          <img class="receipt-preview" id="receiptPreview" alt="chek">
+          <button type="button" class="receipt-remove" onclick="removeReceipt()" data-i18n="cancel_btn">Bekor qilish</button>
+        </div>
+      </div>
+      <div class="error-msg" id="paymentError"></div>
+      <button class="btn btn-primary btn-block" id="payBtn" data-i18n="confirm_order_btn" onclick="doPay()">Buyurtmani tasdiqlash</button>
+    </div>
+
+    <div class="form-view" id="stepConfirm">
+      <div class="confirm-icon">✓</div>
+      <h3 style="text-align:center;" data-i18n="order_success_title">Buyurtma qabul qilindi!</h3>
+      <p class="sub" style="text-align:center;"><span data-i18n="order_success_desc">Buyurtmangiz raqami:</span> <b id="orderId" class="mono"></b></p>
+      <div id="orderSummary" style="margin:16px 0;"></div>
+      <p class="sub" style="text-align:center;" data-i18n="order_pending_desc">To'lovingiz admin tomonidan tekshiriladi. Tasdiqlangach sizga bildiriladi.</p>
+      <button class="btn btn-primary btn-block" data-i18n="close" onclick="closeAll()">Yopish</button>
+    </div>
+  </div>
+</div>
+
+<!-- Receipt lightbox modal -->
+<div class="modal-wrap" id="receiptModal">
+  <div class="modal receipt-modal" style="width:420px; padding:20px;">
+    <button class="modal-close" onclick="closeAll()">✕</button>
+    <img id="receiptModalImg" src="" alt="chek">
+  </div>
+</div>
+
+<!-- Subscribe / unsubscribe confirmation modal -->
+<div class="modal-wrap" id="subscribeModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAll()">✕</button>
+    <h3 id="subModalTitle">Obuna</h3>
+    <p class="sub" id="subModalDesc">&nbsp;</p>
+    <div id="subPendingNote" style="display:none; background:var(--cream); border-radius:12px; padding:14px 16px; font-size:13px; margin-bottom:14px;" data-i18n="subscribe_pending_note">So'rovingiz yuborilgan. Admin tomonidan tekshirilmoqda.</div>
+    <div id="subPayBlock">
+      <div class="pay-card-info">
+        <div class="num mono" id="subPayCardNumber"></div>
+        <div class="owner" id="subPayCardOwner"></div>
+      </div>
+      <div class="field">
+        <label data-i18n="upload_receipt_label">To'lov chekini yuklang (skrinshot yoki rasm)</label>
+        <label class="receipt-upload-box" id="subReceiptUploadBox" for="subReceiptInput">
+          <span class="receipt-upload-label" data-i18n="upload_receipt_label">To'lov chekini yuklang (skrinshot yoki rasm)</span>
+          <input type="file" id="subReceiptInput" accept="image/*" onchange="handleSubReceiptUpload(event)">
+        </label>
+        <div class="receipt-preview-wrap" id="subReceiptPreviewWrap" style="display:none;">
+          <img class="receipt-preview" id="subReceiptPreview" alt="chek">
+          <button type="button" class="receipt-remove" onclick="removeSubReceipt()" data-i18n="cancel_btn">Bekor qilish</button>
+        </div>
+      </div>
+    </div>
+    <div class="error-msg" id="subModalError"></div>
+    <button class="btn btn-primary btn-block" id="subModalConfirmBtn">OK</button>
+    <button class="btn btn-ghost btn-block" style="margin-top:10px;" onclick="closeAll()" data-i18n="cancel_btn">Bekor qilish</button>
+  </div>
+</div>
+
+<!-- Orders modal -->
+<div class="modal-wrap" id="ordersModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAll()">✕</button>
+    <h3 data-i18n="my_orders">Buyurtmalarim</h3>
+    <p class="sub">&nbsp;</p>
+    <div id="ordersList"></div>
+  </div>
+</div>
+
+<!-- Quick view modal -->
+<div class="modal-wrap" id="quickViewModal">
+  <div class="modal qv-modal">
+    <button class="modal-close" onclick="closeAll()">✕</button>
+    <div class="qv-body" id="qvBody"></div>
+  </div>
+</div>
+
+<!-- Admin panel modal -->
+<div class="modal-wrap" id="adminModal">
+  <div class="modal admin-modal">
+    <div class="admin-head">
+      <h3 data-i18n="admin_panel">Admin panel</h3>
+      <button class="modal-close" style="position:static;" onclick="closeAll()">✕</button>
+    </div>
+    <div class="admin-tabs" id="adminTabs">
+      <button class="admin-tab-btn active" data-tab="products" onclick="switchAdminTab('products')" data-i18n="tab_products">Mahsulotlar</button>
+      <button class="admin-tab-btn" data-tab="orders" onclick="switchAdminTab('orders')" data-i18n="tab_orders">Buyurtmalar</button>
+      <button class="admin-tab-btn" data-tab="users" onclick="switchAdminTab('users')" data-i18n="tab_users">Foydalanuvchilar</button>
+      <button class="admin-tab-btn" data-tab="promo" onclick="switchAdminTab('promo')" data-i18n="tab_promo">Promokodlar</button>
+      <button class="admin-tab-btn" data-tab="banners" onclick="switchAdminTab('banners')" data-i18n="tab_banners">Bannerlar</button>
+      <button class="admin-tab-btn" data-tab="settings" onclick="switchAdminTab('settings')" data-i18n="tab_settings">Sozlamalar</button>
+    </div>
+    <div class="admin-body" id="adminBody"></div>
+  </div>
+</div>
+
+<script>
+/* ===================== i18n ===================== */
+const i18n = {
+  uz:{ nav_new:"Yangi", nav_women:"Ayollar", nav_men:"Erkaklar", nav_shoes:"Krossovkalar", nav_sale:"Chegirma",
+    search_ph:"Qidirish...", hero_eyebrow:"Yozgi to'plam · 2026", hero_title_1:"SHARQONA", hero_title_2:"NAQSH,",
+    hero_title_3:"ZAMONAVIY", hero_title_4:"SHAKL", hero_desc:"Kwezr — an'anaviy o'zbek ikat naqshlaridan ilhomlangan zamonaviy kiyim brendi. Har bir buyum shahar ritmiga moslashtirilgan.",
+    hero2_eyebrow:"Chegirma · -30%", hero2_title_1:"HAFTALIK", hero2_title_2:"CHEGIRMA,", hero2_title_3:"CHEKLANGAN", hero2_title_4:"VAQT",
+    hero2_desc:"Tanlangan mahsulotlarga -30% gacha chegirma. Faqat shu hafta amal qiladi.",
+    hero3_eyebrow:"Yangi kolleksiya", hero3_title_1:"QISHKI", hero3_title_2:"KIYIMLAR,", hero3_title_3:"ILIQ", hero3_title_4:"USLUB",
+    hero3_desc:"Yangi mavsum uchun tayyorlangan iliq va zamonaviy kiyimlar to'plami bilan tanishing.",
+    btn_shop:"Xarid qilish", btn_collection:"To'plamni ko'rish", cat_all:"Barchasi", cat_koylak:"Ko'ylaklar",
+    cat_kurtka:"Kurtka & Palto", cat_krossovka:"Krossovkalar", cat_shim:"Shim & Jinsi", cat_aksessuar:"Aksessuarlar",
+    cat_gym:"Gym", cat_oversize:"Oversize",
+    bestsellers:"Bestsellerlar", products_suffix:"mahsulot", add_to_cart:"Savatga qo'shish", added:"Qo'shildi ✓",
+    banner_title:"Obuna oling — bir yilga bepul yetkazib berish", banner_desc:"Obuna bo'ling va 12 oy davomida buyurtmalaringiz bepul yetkazilsin.", banner_days_note:"Sotib olsangiz {days} kun davomida yetkazib berish tekin",
+    banner_btn:"Obuna bo'lish", banner_subscribed:"Obuna faol ✓ (bekor qilish)", footer_desc:"Toshkentdan butun dunyoga — an'ana va zamonaviylik kesishgan joyda kiyim.",
+    subtotal_label:"Mahsulotlar", delivery_fee_label:"Yetkazib berish", free_label:"Bepul", days_left_label:"kun qoldi",
+    subscribe_title:"Obunani sotib olish", unsubscribe_title:"Obunani bekor qilish",
+    subscribe_btn:"Sotib olish va to'lash", unsubscribe_btn:"Obunani bekor qilish",
+    subscribe_confirm:"Obunani sotib olasizmi? Narxi: {price}. Shundan so'ng {days} kun davomida barcha buyurtmalaringiz bepul yetkazib beriladi.",
+    subscribe_success:"Obuna faollashtirildi! Endi {days} kun davomida yetkazib berish bepul.",
+    unsubscribe_confirm:"Obunani bekor qilasizmi? Bepul yetkazib berish shu zahoti to'xtaydi.",
+    footer_shop:"Do'kon", footer_help:"Yordam", footer_company:"Kompaniya", cart_title:"Savat", cart_empty:"Savat hozircha bo'sh",
+    cart_total:"Jami", checkout_btn:"Buyurtma berish", account:"Hisob", login:"Kirish", register:"Ro'yxatdan o'tish",
+    name_label:"Ism", phone_label:"Telefon raqam", password_label:"Parol", login_btn:"Kirish", register_btn:"Ro'yxatdan o'tish",
+    logout:"Chiqish", my_orders:"Buyurtmalarim", checkout_title:"Buyurtmani rasmiylashtirish", step_delivery:"Yetkazib berish",
+    step_payment:"To'lov", step_confirm:"Tasdiqlash", address_label:"Manzil", continue_btn:"Davom etish", payment_method:"To'lov usuli",
+    card:"Karta orqali", cash:"Naqd pul (yetkazib berilganda)", card_number:"Karta raqami", expiry:"Amal qilish muddati",
+    cvv:"CVV", cardholder:"Karta egasi", pay_btn:"To'lash", order_success_title:"Buyurtma qabul qilindi!",
+    order_success_desc:"Buyurtmangiz raqami:", order_thanks:"Xaridingiz uchun rahmat!", close:"Yopish",
+    login_required:"Buyurtma berish uchun avval hisobingizga kiring.", no_orders:"Hozircha buyurtmalar yo'q.",
+    fill_all:"Barcha maydonlarni to'ldiring.", user_exists:"Bu raqam bilan hisob mavjud.", wrong_creds:"Telefon yoki parol xato.",
+    invalid_card:"Karta ma'lumotlarini to'liq kiriting.",
+    size_label:"O'lcham", color_label:"Rang", select_size:"O'lchamni tanlang", select_color:"Rangni tanlang", one_size:"Universal",
+    admin_panel:"Admin panel", tab_products:"Mahsulotlar", tab_orders:"Buyurtmalar", tab_users:"Foydalanuvchilar", tab_settings:"Sozlamalar",
+    tab_banners:"Bannerlar", sale_banner_label:"Chegirma banneri", new_banner_label:"Qishki kolleksiya banneri",
+    main_banner_label:"Asosiy banner (fasl uslubi)", banner_season_label:"Fasl yorlig'i (masalan: Yozgi to'plam · 2026)",
+    banner_image_label:"Rasm (kompyuteringizdan yuklang)", banner_price_label:"Narx / chegirma matni (masalan: -30% yoki 249 000 so'm)",
+    subscription_price_label:"Obuna narxi (so'm)", subscription_days_label:"Obuna muddati (kun)", delivery_fee_admin_label:"Yetkazib berish narxi (so'm)",
+    settings_saved:"Sozlamalar saqlandi ✓",
+    add_product:"+ Yangi mahsulot", edit_product:"Mahsulotni tahrirlash", product_name:"Nomi (barcha tillar uchun)",
+    category_label:"Kategoriya", price_label:"Narxi", old_price_label:"Eski narx (chegirma bo'lsa)", icon_label:"Belgi (emoji)",
+    sizes_label:"O'lchamlar (vergul bilan, masalan: S,M,L,XL)", colors_label:"Ranglar", sale_label:"Chegirmada", image_label:"Asosiy rasm (kompyuteringizdan yuklang)", color_image_hint:"Har bir rang uchun alohida rasm yuklashingiz mumkin — mijoz o'sha rangni tanlaganda aynan shu rasm chiqadi.",
+    save_btn:"Saqlash", cancel_btn:"Bekor qilish", confirm_delete_product:"Bu mahsulotni o'chirishni tasdiqlaysizmi?",
+    confirm_delete_user:"Bu foydalanuvchini o'chirishni tasdiqlaysizmi?", no_products_admin:"Mahsulotlar yo'q.",
+    no_users_admin:"Foydalanuvchilar yo'q.", no_orders_admin:"Buyurtmalar yo'q.", order_status:"Holat",
+    status_new:"Yangi", status_processing:"Tayyorlanmoqda", status_shipped:"Yo'lda", status_delivered:"Yetkazildi", status_cancelled:"Bekor qilindi",
+    customer_label:"Mijoz", registered_label:"Ro'yxatdan o'tgan", orders_count_label:"Buyurtmalar", admin_label:"Admin",
+    make_admin:"Admin qilish", remove_admin:"Adminlikni olib tashlash", delete_label:"O'chirish", edit_label:"Tahrirlash",
+    cannot_delete_self:"O'zingizni o'chira olmaysiz.", details_label:"Tafsilotlar", quick_view_btn:"Ko'rib chiqish",
+    id_label:"ID", total_label:"Summa", date_label:"Sana",
+    receipt_instructions:"Quyidagi karta raqamiga ko'rsatilgan summani o'tkazing, so'ng to'lov chekining skrinshoti yoki rasmini yuklang.",
+    upload_receipt_label:"To'lov chekini yuklang (skrinshot yoki rasm)", receipt_required:"Iltimos, to'lov chekini yuklang.",
+    confirm_order_btn:"Buyurtmani tasdiqlash", order_pending_desc:"To'lovingiz admin tomonidan tekshiriladi. Tasdiqlangach sizga bildiriladi.",
+    payment_pending:"To'lov tekshirilmoqda", payment_confirmed:"To'lov tasdiqlandi", confirm_payment_btn:"To'lovni tasdiqlash",
+    view_receipt:"Chekni ko'rish", no_receipt:"Chek yuklanmagan", card_number_label:"To'lov uchun karta raqami", card_owner_label:"Karta egasi",
+    subscribe_pending_note:"So'rovingiz yuborilgan. Admin tomonidan tekshirilmoqda.", subscribe_pending_btn:"So'rov yuborilgan — tekshirilmoqda",
+    subscribe_request_btn:"So'rovni yuborish", subscription_confirm_btn:"Obunani tasdiqlash", subscription_reject_btn:"Rad etish",
+    subscription_col_label:"Obuna", no_search_results:"Hech narsa topilmadi. Boshqa so'z bilan qidirib ko'ring.",
+    favorites_title:"Sevimlilar", no_favorites:"Sevimlilar ro'yxati bo'sh.", add_favorite_btn:"Sevimlilarga qo'shish", remove_favorite_btn:"Sevimlilardan olib tashlash",
+    no_notifications:"Bildirishnomalar yo'q.", notif_order_status:"Buyurtma {id} holati: {status}", notif_payment_confirmed:"{id} raqamli buyurtmangiz uchun to'lov tasdiqlandi",
+    notif_subscription_confirmed:"Obunangiz tasdiqlandi!", notif_subscription_rejected:"Obuna so'rovingiz rad etildi. Iltimos, qayta urinib ko'ring.",
+    stock_label:"Qoldiq", stock_admin_label:"Qoldiq (dona)", in_stock_label:"Mavjud", out_of_stock_label:"Tugagan",
+    out_of_stock_short:"Yetarli emas", low_stock_label:"Faqat {n} dona qoldi",
+    tab_promo:"Promokodlar", add_promo:"+ Yangi promokod", edit_promo:"Promokodni tahrirlash",
+    promo_code_col:"Kod", promo_type_col:"Turi", promo_value_col:"Qiymati", promo_status_col:"Holati",
+    percent_label:"Foizli (%)", fixed_label:"Belgilangan summa", active_label:"Faol", inactive_label:"Faol emas",
+    no_promocodes_admin:"Promokodlar yo'q.", confirm_delete_promo:"Bu promokodni o'chirishni tasdiqlaysizmi?",
+    promo_placeholder:"Promokod", apply_promo_btn:"Qo'llash", discount_label:"Chegirma", promo_invalid:"Promokod topilmadi yoki faol emas.",
+    delivery_region_label:"Yetkazib berish hududi", delivery_regions_title:"Yetkazib berish hududlari",
+    add_region:"+ Yangi hudud", edit_region:"Hududni tahrirlash", region_name_col:"Hudud nomi", region_fee_col:"Narxi",
+    no_regions_admin:"Hududlar yo'q.", confirm_delete_region:"Bu hududni o'chirishni tasdiqlaysizmi?",
+    color_indigo:"Indigo", color_magenta:"Magenta", color_gold:"Oltin", color_ink:"Qora", color_cream:"Krem", color_wine:"Vino", color_olive:"Zaytun", color_gray:"Kulrang" },
+  ru:{ nav_new:"Новинки", nav_women:"Женщинам", nav_men:"Мужчинам", nav_shoes:"Кроссовки", nav_sale:"Скидки",
+    search_ph:"Поиск...", hero_eyebrow:"Летняя коллекция · 2026", hero_title_1:"ВОСТОЧНЫЙ", hero_title_2:"УЗОР,",
+    hero_title_3:"СОВРЕМЕННАЯ", hero_title_4:"ФОРМА", hero_desc:"Kwezr — современный бренд одежды, вдохновлённый традиционным узбекским орнаментом икат.",
+    hero2_eyebrow:"Скидка · -30%", hero2_title_1:"НЕДЕЛЯ", hero2_title_2:"СКИДОК,", hero2_title_3:"ОГРАНИЧЕННОЕ", hero2_title_4:"ВРЕМЯ",
+    hero2_desc:"Скидки до -30% на избранные товары. Только на этой неделе.",
+    hero3_eyebrow:"Новая коллекция", hero3_title_1:"ЗИМНЯЯ", hero3_title_2:"ОДЕЖДА,", hero3_title_3:"ТЁПЛЫЙ", hero3_title_4:"СТИЛЬ",
+    hero3_desc:"Познакомьтесь с тёплой и современной коллекцией нового сезона.",
+    btn_shop:"В магазин", btn_collection:"Смотреть коллекцию", cat_all:"Все", cat_koylak:"Платья",
+    cat_kurtka:"Куртки и пальто", cat_krossovka:"Кроссовки", cat_shim:"Брюки и джинсы", cat_aksessuar:"Аксессуары",
+    cat_gym:"Gym", cat_oversize:"Оверсайз",
+    bestsellers:"Бестселлеры", products_suffix:"товаров", add_to_cart:"В корзину", added:"Добавлено ✓",
+    banner_title:"Оформите подписку — бесплатная доставка на год", banner_desc:"Оформите подписку и получайте все заказы быстро и бесплатно 12 месяцев.", banner_days_note:"При покупке доставка бесплатна {days} дней",
+    banner_btn:"Оформить", banner_subscribed:"Подписка активна ✓ (отменить)", footer_desc:"Из Ташкента — всему миру. Одежда на стыке традиции и современности.",
+    subtotal_label:"Товары", delivery_fee_label:"Доставка", free_label:"Бесплатно", days_left_label:"дн. осталось",
+    subscribe_title:"Покупка подписки", unsubscribe_title:"Отмена подписки",
+    subscribe_btn:"Купить и оплатить", unsubscribe_btn:"Отменить подписку",
+    subscribe_confirm:"Купить подписку? Стоимость: {price}. После этого {days} дней все ваши заказы будут доставляться бесплатно.",
+    subscribe_success:"Подписка активирована! Теперь {days} дней доставка бесплатна.",
+    unsubscribe_confirm:"Отменить подписку? Бесплатная доставка прекратится немедленно.",
+    footer_shop:"Магазин", footer_help:"Помощь", footer_company:"Компания", cart_title:"Корзина", cart_empty:"Корзина пуста",
+    cart_total:"Итого", checkout_btn:"Оформить заказ", account:"Аккаунт", login:"Войти", register:"Регистрация",
+    name_label:"Имя", phone_label:"Номер телефона", password_label:"Пароль", login_btn:"Войти", register_btn:"Зарегистрироваться",
+    logout:"Выйти", my_orders:"Мои заказы", checkout_title:"Оформление заказа", step_delivery:"Доставка",
+    step_payment:"Оплата", step_confirm:"Подтверждение", address_label:"Адрес", continue_btn:"Продолжить", payment_method:"Способ оплаты",
+    card:"Картой", cash:"Наличными (при получении)", card_number:"Номер карты", expiry:"Срок действия",
+    cvv:"CVV", cardholder:"Владелец карты", pay_btn:"Оплатить", order_success_title:"Заказ принят!",
+    order_success_desc:"Номер заказа:", order_thanks:"Спасибо за покупку!", close:"Закрыть",
+    login_required:"Войдите в аккаунт, чтобы оформить заказ.", no_orders:"Пока нет заказов.",
+    fill_all:"Заполните все поля.", user_exists:"Аккаунт с этим номером уже существует.", wrong_creds:"Неверный телефон или пароль.",
+    invalid_card:"Заполните данные карты полностью.",
+    size_label:"Размер", color_label:"Цвет", select_size:"Выберите размер", select_color:"Выберите цвет", one_size:"Универсальный",
+    admin_panel:"Админ-панель", tab_products:"Товары", tab_orders:"Заказы", tab_users:"Пользователи", tab_settings:"Настройки",
+    tab_banners:"Баннеры", sale_banner_label:"Баннер скидки", new_banner_label:"Баннер зимней коллекции",
+    main_banner_label:"Главный баннер (сезонный стиль)", banner_season_label:"Сезонная метка (например: Летняя коллекция · 2026)",
+    banner_image_label:"Изображение (загрузите с компьютера)", banner_price_label:"Цена / текст скидки (например: -30% или 249 000 сум)",
+    subscription_price_label:"Цена подписки (сум)", subscription_days_label:"Срок подписки (дней)", delivery_fee_admin_label:"Стоимость доставки (сум)",
+    settings_saved:"Настройки сохранены ✓",
+    add_product:"+ Новый товар", edit_product:"Редактировать товар", product_name:"Название (для всех языков)",
+    category_label:"Категория", price_label:"Цена", old_price_label:"Старая цена (если скидка)", icon_label:"Значок (эмодзи)",
+    sizes_label:"Размеры (через запятую, напр: S,M,L,XL)", colors_label:"Цвета", sale_label:"Со скидкой", image_label:"Основное изображение (загрузите с компьютера)", color_image_hint:"Вы можете загрузить отдельное изображение для каждого цвета — при выборе цвета покупателем будет показано именно оно.",
+    save_btn:"Сохранить", cancel_btn:"Отмена", confirm_delete_product:"Удалить этот товар?",
+    confirm_delete_user:"Удалить этого пользователя?", no_products_admin:"Товаров нет.",
+    no_users_admin:"Пользователей нет.", no_orders_admin:"Заказов нет.", order_status:"Статус",
+    status_new:"Новый", status_processing:"В обработке", status_shipped:"В пути", status_delivered:"Доставлен", status_cancelled:"Отменён",
+    customer_label:"Клиент", registered_label:"Дата регистрации", orders_count_label:"Заказы", admin_label:"Админ",
+    make_admin:"Сделать админом", remove_admin:"Убрать права админа", delete_label:"Удалить", edit_label:"Изменить",
+    cannot_delete_self:"Нельзя удалить самого себя.", details_label:"Детали", quick_view_btn:"Быстрый просмотр",
+    id_label:"ID", total_label:"Сумма", date_label:"Дата",
+    receipt_instructions:"Переведите указанную сумму на карту ниже, затем загрузите скриншот или фото чека об оплате.",
+    upload_receipt_label:"Загрузите чек оплаты (скриншот или фото)", receipt_required:"Пожалуйста, загрузите чек оплаты.",
+    confirm_order_btn:"Подтвердить заказ", order_pending_desc:"Ваш платёж будет проверен администратором. Вы получите уведомление после подтверждения.",
+    payment_pending:"Оплата проверяется", payment_confirmed:"Оплата подтверждена", confirm_payment_btn:"Подтвердить оплату",
+    view_receipt:"Посмотреть чек", no_receipt:"Чек не загружен", card_number_label:"Номер карты для оплаты", card_owner_label:"Владелец карты",
+    subscribe_pending_note:"Ваш запрос отправлен. Проверяется администратором.", subscribe_pending_btn:"Запрос отправлен — проверяется",
+    subscribe_request_btn:"Отправить запрос", subscription_confirm_btn:"Подтвердить подписку", subscription_reject_btn:"Отклонить",
+    subscription_col_label:"Подписка", no_search_results:"Ничего не найдено. Попробуйте другой запрос.",
+    favorites_title:"Избранное", no_favorites:"Список избранного пуст.", add_favorite_btn:"Добавить в избранное", remove_favorite_btn:"Убрать из избранного",
+    no_notifications:"Уведомлений нет.", notif_order_status:"Статус заказа {id}: {status}", notif_payment_confirmed:"Оплата по заказу {id} подтверждена",
+    notif_subscription_confirmed:"Ваша подписка подтверждена!", notif_subscription_rejected:"Ваш запрос на подписку отклонён. Попробуйте ещё раз.",
+    stock_label:"Остаток", stock_admin_label:"Остаток (шт)", in_stock_label:"В наличии", out_of_stock_label:"Нет в наличии",
+    out_of_stock_short:"Недостаточно", low_stock_label:"Осталось всего {n} шт.",
+    tab_promo:"Промокоды", add_promo:"+ Новый промокод", edit_promo:"Редактировать промокод",
+    promo_code_col:"Код", promo_type_col:"Тип", promo_value_col:"Значение", promo_status_col:"Статус",
+    percent_label:"Процент (%)", fixed_label:"Фиксированная сумма", active_label:"Активен", inactive_label:"Не активен",
+    no_promocodes_admin:"Промокодов нет.", confirm_delete_promo:"Удалить этот промокод?",
+    promo_placeholder:"Промокод", apply_promo_btn:"Применить", discount_label:"Скидка", promo_invalid:"Промокод не найден или не активен.",
+    delivery_region_label:"Регион доставки", delivery_regions_title:"Регионы доставки",
+    add_region:"+ Новый регион", edit_region:"Редактировать регион", region_name_col:"Название региона", region_fee_col:"Стоимость",
+    no_regions_admin:"Регионов нет.", confirm_delete_region:"Удалить этот регион?",
+    color_indigo:"Индиго", color_magenta:"Маджента", color_gold:"Золотой", color_ink:"Чёрный", color_cream:"Кремовый", color_wine:"Винный", color_olive:"Оливковый", color_gray:"Серый" },
+  en:{ nav_new:"New in", nav_women:"Women", nav_men:"Men", nav_shoes:"Shoes", nav_sale:"Sale",
+    search_ph:"Search...", hero_eyebrow:"Summer collection · 2026", hero_title_1:"EASTERN", hero_title_2:"PATTERN,",
+    hero_title_3:"MODERN", hero_title_4:"SHAPE", hero_desc:"Kwezr — a modern clothing brand inspired by traditional Uzbek ikat patterns.",
+    hero2_eyebrow:"Sale · -30%", hero2_title_1:"WEEKLY", hero2_title_2:"SALE,", hero2_title_3:"LIMITED", hero2_title_4:"TIME",
+    hero2_desc:"Up to -30% off selected items. This week only.",
+    hero3_eyebrow:"New collection", hero3_title_1:"WINTER", hero3_title_2:"WEAR,", hero3_title_3:"WARM", hero3_title_4:"STYLE",
+    hero3_desc:"Discover our warm and modern collection for the new season.",
+    btn_shop:"Shop now", btn_collection:"View collection", cat_all:"All", cat_koylak:"Dresses",
+    cat_kurtka:"Jackets & Coats", cat_krossovka:"Trainers", cat_shim:"Trousers & Jeans", cat_aksessuar:"Accessories",
+    cat_gym:"Gym", cat_oversize:"Oversize",
+    bestsellers:"Bestsellers", products_suffix:"items", add_to_cart:"Add to bag", added:"Added ✓",
+    banner_title:"Subscribe — free delivery for a year", banner_desc:"Subscribe and get fast, free delivery on every order for 12 months.", banner_days_note:"Free delivery for {days} days after purchase",
+    banner_btn:"Subscribe", banner_subscribed:"Subscribed ✓ (cancel)", footer_desc:"From Tashkent to the world — clothing where tradition meets the modern.",
+    subtotal_label:"Items", delivery_fee_label:"Delivery", free_label:"Free", days_left_label:"days left",
+    subscribe_title:"Buy subscription", unsubscribe_title:"Cancel subscription",
+    subscribe_btn:"Buy & pay", unsubscribe_btn:"Cancel subscription",
+    subscribe_confirm:"Buy the subscription? Price: {price}. After that, all your orders get free delivery for {days} days.",
+    subscribe_success:"Subscription activated! Delivery is free for the next {days} days.",
+    unsubscribe_confirm:"Cancel your subscription? Free delivery will stop immediately.",
+    footer_shop:"Shop", footer_help:"Help", footer_company:"Company", cart_title:"Bag", cart_empty:"Your bag is empty",
+    cart_total:"Total", checkout_btn:"Checkout", account:"Account", login:"Log in", register:"Sign up",
+    name_label:"Name", phone_label:"Phone number", password_label:"Password", login_btn:"Log in", register_btn:"Sign up",
+    logout:"Log out", my_orders:"My orders", checkout_title:"Checkout", step_delivery:"Delivery",
+    step_payment:"Payment", step_confirm:"Confirmation", address_label:"Address", continue_btn:"Continue", payment_method:"Payment method",
+    card:"Card", cash:"Cash on delivery", card_number:"Card number", expiry:"Expiry",
+    cvv:"CVV", cardholder:"Cardholder name", pay_btn:"Pay", order_success_title:"Order placed!",
+    order_success_desc:"Your order number:", order_thanks:"Thanks for shopping with us!", close:"Close",
+    login_required:"Please log in to check out.", no_orders:"No orders yet.",
+    fill_all:"Please fill in all fields.", user_exists:"An account with this number already exists.", wrong_creds:"Wrong phone or password.",
+    invalid_card:"Please fill in full card details.",
+    size_label:"Size", color_label:"Color", select_size:"Select size", select_color:"Select color", one_size:"One size",
+    admin_panel:"Admin panel", tab_products:"Products", tab_orders:"Orders", tab_users:"Users", tab_settings:"Settings",
+    tab_banners:"Banners", sale_banner_label:"Sale banner", new_banner_label:"Winter collection banner",
+    main_banner_label:"Main banner (seasonal style)", banner_season_label:"Season label (e.g. Summer collection · 2026)",
+    banner_image_label:"Image (upload from your computer)", banner_price_label:"Price / discount text (e.g. -30% or $249)",
+    subscription_price_label:"Subscription price (UZS)", subscription_days_label:"Subscription length (days)", delivery_fee_admin_label:"Delivery fee (UZS)",
+    settings_saved:"Settings saved ✓",
+    add_product:"+ New product", edit_product:"Edit product", product_name:"Name (all languages)",
+    category_label:"Category", price_label:"Price", old_price_label:"Old price (if on sale)", icon_label:"Icon (emoji)",
+    sizes_label:"Sizes (comma separated, e.g. S,M,L,XL)", colors_label:"Colors", sale_label:"On sale", image_label:"Main image (upload from your device)", color_image_hint:"You can upload a separate image for each color — the customer will see that exact image when they pick that color.",
+    save_btn:"Save", cancel_btn:"Cancel", confirm_delete_product:"Delete this product?",
+    confirm_delete_user:"Delete this user?", no_products_admin:"No products.",
+    no_users_admin:"No users.", no_orders_admin:"No orders.", order_status:"Status",
+    status_new:"New", status_processing:"Processing", status_shipped:"Shipped", status_delivered:"Delivered", status_cancelled:"Cancelled",
+    customer_label:"Customer", registered_label:"Registered", orders_count_label:"Orders", admin_label:"Admin",
+    make_admin:"Make admin", remove_admin:"Remove admin", delete_label:"Delete", edit_label:"Edit",
+    cannot_delete_self:"You can't delete yourself.", details_label:"Details", quick_view_btn:"Quick view",
+    id_label:"ID", total_label:"Total", date_label:"Date",
+    receipt_instructions:"Transfer the amount shown to the card number below, then upload a screenshot or photo of the payment receipt.",
+    upload_receipt_label:"Upload payment receipt (screenshot or photo)", receipt_required:"Please upload the payment receipt.",
+    confirm_order_btn:"Confirm order", order_pending_desc:"Your payment will be reviewed by our admin. You'll be notified once it's confirmed.",
+    payment_pending:"Payment under review", payment_confirmed:"Payment confirmed", confirm_payment_btn:"Confirm payment",
+    view_receipt:"View receipt", no_receipt:"No receipt uploaded", card_number_label:"Payment card number", card_owner_label:"Card holder",
+    subscribe_pending_note:"Your request has been sent. It's being reviewed by admin.", subscribe_pending_btn:"Request sent — under review",
+    subscribe_request_btn:"Send request", subscription_confirm_btn:"Confirm subscription", subscription_reject_btn:"Reject",
+    subscription_col_label:"Subscription", no_search_results:"No results found. Try a different search term.",
+    favorites_title:"Favorites", no_favorites:"Your favorites list is empty.", add_favorite_btn:"Add to favorites", remove_favorite_btn:"Remove from favorites",
+    no_notifications:"No notifications yet.", notif_order_status:"Order {id} status: {status}", notif_payment_confirmed:"Payment confirmed for order {id}",
+    notif_subscription_confirmed:"Your subscription has been confirmed!", notif_subscription_rejected:"Your subscription request was rejected. Please try again.",
+    stock_label:"Stock", stock_admin_label:"Stock (units)", in_stock_label:"In stock", out_of_stock_label:"Out of stock",
+    out_of_stock_short:"Not enough stock", low_stock_label:"Only {n} left",
+    tab_promo:"Promo codes", add_promo:"+ New promo code", edit_promo:"Edit promo code",
+    promo_code_col:"Code", promo_type_col:"Type", promo_value_col:"Value", promo_status_col:"Status",
+    percent_label:"Percentage (%)", fixed_label:"Fixed amount", active_label:"Active", inactive_label:"Inactive",
+    no_promocodes_admin:"No promo codes.", confirm_delete_promo:"Delete this promo code?",
+    promo_placeholder:"Promo code", apply_promo_btn:"Apply", discount_label:"Discount", promo_invalid:"Promo code not found or inactive.",
+    delivery_region_label:"Delivery region", delivery_regions_title:"Delivery regions",
+    add_region:"+ New region", edit_region:"Edit region", region_name_col:"Region name", region_fee_col:"Fee",
+    no_regions_admin:"No regions.", confirm_delete_region:"Delete this region?",
+    color_indigo:"Indigo", color_magenta:"Magenta", color_gold:"Gold", color_ink:"Black", color_cream:"Cream", color_wine:"Wine", color_olive:"Olive", color_gray:"Gray" }
+};
+let lang = 'uz';
+
+// Telegram bot bildirishnoma serveri manzili (kwezr-telegram-admin-bot/server.js)
+// Serverni boshqa joyda joylashtirsangiz, shu manzilni almashtiring.
+const BACKEND_URL = '/api/order';
+async function notifyBackend(order){
+  try{
+    await fetch(BACKEND_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(order)
+    });
+  }catch(e){
+    console.warn('Bot serveriga xabar yuborilmadi (server ishlamayotgan bo\'lishi mumkin):', e);
+  }
+}
+// ===== Hero slider =====
+let heroIndex = 0;
+const heroSlideCount = 3;
+let heroTimer = null;
+function heroRender(){
+  document.getElementById('heroTrack').style.transform = `translateX(-${heroIndex * (100/heroSlideCount)}%)`;
+  document.querySelectorAll('#heroDots .hero-dot').forEach((d,i)=> d.classList.toggle('active', i===heroIndex));
+}
+function heroGoTo(i){ heroIndex = i; heroRender(); heroRestartAutoplay(); }
+function heroNext(){ heroIndex = (heroIndex+1) % heroSlideCount; heroRender(); heroRestartAutoplay(); }
+function heroPrev(){ heroIndex = (heroIndex-1+heroSlideCount) % heroSlideCount; heroRender(); heroRestartAutoplay(); }
+function pauseHeroAutoplay(){ if(heroTimer){ clearInterval(heroTimer); heroTimer=null; } }
+function resumeHeroAutoplay(){ pauseHeroAutoplay(); heroTimer = setInterval(heroNext, 5000); }
+function heroRestartAutoplay(){ resumeHeroAutoplay(); }
+resumeHeroAutoplay();
+
+function t(key){ return (i18n[lang] && i18n[lang][key]) || key; }
+
+function applyI18n(){
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  renderGrid(); renderCart(); renderAccountArea(); renderSubscribeButton(); renderFavPanel(); renderNotifArea();
+  document.getElementById('resultCount').textContent = document.getElementById('resultCount').dataset.n + " " + t('products_suffix');
+  applyHeroBanners();
+}
+async function setLang(l){
+  lang = l;
+  try{ await window.storage.set('lang', l, false); }catch(e){}
+  applyI18n();
+}
+
+/* ===================== Storage helpers ===================== */
+// shared=false (masalan "session", "lang"): faqat shu brauzerga tegishli —
+//   localStorage'da qoladi.
+// shared=true (mahsulotlar, promokodlar, buyurtmalar, foydalanuvchilar...):
+//   SERVERGA saqlanadi (kwezr-telegram-admin-bot/server.js), shuning uchun
+//   saytga kirgan HAR BIR kishi (har qanday qurilma/brauzerdan) bir xil
+//   ma'lumotni ko'radi. Server ishlamasa yoki tarmoq bo'lmasa, localStorage'ga
+//   zaxira sifatida tushib qoladi, lekin bu holda ma'lumot faqat shu brauzerda
+//   qoladi (boshqalarga ko'rinmaydi) — shuning uchun server doim ishlab
+//   turishi shart (qarang: README.md).
+const STORE_API_BASE = BACKEND_URL.replace(/\/api\/order$/, '/api/store');
+
+async function storeGet(key, shared=false){
+  if(shared){
+    try{
+      const res = await fetch(STORE_API_BASE + '/' + encodeURIComponent(key).replace(/%3A/g, ':'));
+      if(res.ok){
+        const data = await res.json();
+        return data.value !== undefined ? data.value : null;
+      }
+    }catch(e){ /* server bilan bog'lanib bo'lmadi — pastda localStorage'ga tushamiz */ }
+  }
+  try{
+    const raw = localStorage.getItem('kwezr:' + key);
+    return raw !== null ? JSON.parse(raw) : null;
+  }catch(e){ return null; }
+}
+async function storeSet(key, val, shared=false){
+  if(shared){
+    try{
+      const res = await fetch(STORE_API_BASE + '/' + encodeURIComponent(key).replace(/%3A/g, ':'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ value: val })
+      });
+      if(res.ok) return;
+    }catch(e){ /* server bilan bog'lanib bo'lmadi — pastda localStorage'ga tushamiz */ }
+  }
+  try{ localStorage.setItem('kwezr:' + key, JSON.stringify(val)); }catch(e){}
+}
+async function storeDelete(key, shared=false){
+  if(shared){
+    try{
+      const res = await fetch(STORE_API_BASE + '/' + encodeURIComponent(key).replace(/%3A/g, ':'), { method: 'DELETE' });
+      if(res.ok) return;
+    }catch(e){ /* server bilan bog'lanib bo'lmadi — pastda localStorage'ga tushamiz */ }
+  }
+  try{ localStorage.removeItem('kwezr:' + key); }catch(e){}
+}
+
+/* ===================== Products ===================== */
+const gradients = [
+  'linear-gradient(135deg, var(--magenta), var(--indigo))',
+  'linear-gradient(135deg, var(--gold), var(--magenta))',
+  'linear-gradient(135deg, var(--indigo), #7A1943)',
+  'linear-gradient(135deg, #7A1943, var(--gold))',
+  'linear-gradient(135deg, var(--indigo), var(--gold))',
+];
+const COLORS_LIB = {
+  indigo:{hex:'#1B2A4A'}, magenta:{hex:'#C81D5E'}, gold:{hex:'#E8A93B'}, ink:{hex:'#1A1613'},
+  cream:{hex:'#F6F1E4'}, wine:{hex:'#7A1943'}, olive:{hex:'#6B7A4F'}, gray:{hex:'#8A8478'}
+};
+function colorHex(key){ return (COLORS_LIB[key] || {}).hex || '#ccc'; }
+function colorName(key){ return t('color_' + key) || key; }
+function shadeColor(hex, percent){
+  const f = parseInt((hex||'#999999').slice(1),16), t = percent<0?0:255, p = Math.abs(percent)/100;
+  const R=f>>16, G=f>>8&0x00FF, B=f&0x0000FF;
+  return "#"+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1);
+}
+function productImageFor(p, colorKey){
+  if(p.colorImages && colorKey && p.colorImages[colorKey]) return p.colorImages[colorKey];
+  return p.image || null;
+}
+function mediaGradient(p, idx){
+  const sel = ensureSelection(p);
+  if(sel.color){
+    const hex = colorHex(sel.color);
+    return `linear-gradient(135deg, ${hex}, ${shadeColor(hex, -32)})`;
+  }
+  return gradients[idx % gradients.length];
+}
+
+const DEFAULT_PRODUCTS = [
+  {id:1, cat:"koylak", icon:"👗", price:249000, old:329000, sale:true, stock:14, sizes:["S","M","L","XL"], colors:["indigo","magenta","wine"], name:{uz:"Ikat naqshli ko'ylak", ru:"Платье с узором икат", en:"Ikat-print dress"}},
+  {id:2, cat:"kurtka", icon:"🧥", price:459000, stock:6, sizes:["S","M","L","XL"], colors:["indigo","ink","gray"], name:{uz:"Oversize denim kurtka", ru:"Оверсайз джинсовая куртка", en:"Oversized denim jacket"}},
+  {id:3, cat:"krossovka", icon:"👟", price:589000, old:690000, sale:true, stock:3, sizes:["38","39","40","41","42","43"], colors:["ink","cream","gold"], name:{uz:"Chevron krossovka", ru:"Кроссовки Chevron", en:"Chevron trainers"}},
+  {id:4, cat:"koylak", icon:"🧶", price:219000, stock:20, sizes:["S","M","L"], colors:["cream","olive","gray"], name:{uz:"Yupqa trikotaj jemper", ru:"Тонкий трикотажный джемпер", en:"Fine knit jumper"}},
+  {id:5, cat:"shim", icon:"👖", price:279000, stock:9, sizes:["S","M","L","XL"], colors:["indigo","ink"], name:{uz:"Keng shim, indigo", ru:"Широкие брюки, индиго", en:"Wide-leg trousers, indigo"}},
+  {id:6, cat:"aksessuar", icon:"🧢", price:99000, stock:0, sizes:[], colors:["ink","gold","cream"], name:{uz:"Kashtali kepka", ru:"Кепка с вышивкой", en:"Embroidered cap"}},
+  {id:7, cat:"kurtka", icon:"🧥", price:699000, stock:5, sizes:["S","M","L","XL"], colors:["wine","indigo","ink"], name:{uz:"Uzun palto, sharqona", ru:"Длинное пальто, восточный стиль", en:"Long coat, eastern style"}},
+  {id:8, cat:"aksessuar", icon:"👜", price:349000, old:420000, sale:true, stock:11, sizes:[], colors:["ink","cream","olive"], name:{uz:"Minimalist sumka", ru:"Минималистичная сумка", en:"Minimalist bag"}},
+  {id:9, cat:"krossovka", icon:"👟", price:519000, stock:17, sizes:["38","39","40","41","42","43"], colors:["ink","gray","magenta"], name:{uz:"Sport krossovka", ru:"Спортивные кроссовки", en:"Sport trainers"}},
+  {id:10, cat:"shim", icon:"👖", price:299000, stock:8, sizes:["S","M","L","XL"], colors:["indigo","gray"], name:{uz:"Klassik jinsi shim", ru:"Классические джинсы", en:"Classic jeans"}},
+  {id:11, cat:"aksessuar", icon:"🧣", price:159000, stock:4, sizes:[], colors:["magenta","gold","wine"], name:{uz:"Ipak ro'mol, atlas print", ru:"Шёлковый платок, принт атлас", en:"Silk scarf, atlas print"}},
+  {id:12, cat:"koylak", icon:"👗", price:389000, stock:12, sizes:["S","M","L","XL"], colors:["cream","gold","magenta"], name:{uz:"Maxi ko'ylak, yoz kolleksiya", ru:"Макси-платье, летняя коллекция", en:"Maxi dress, summer collection"}},
+  {id:13, cat:"gym", icon:"🏋️", price:189000, stock:16, sizes:["S","M","L","XL"], colors:["ink","gray","indigo"], name:{uz:"Sport shim, gym", ru:"Спортивные штаны, gym", en:"Gym joggers"}},
+  {id:14, cat:"gym", icon:"🎽", price:139000, stock:22, sizes:["S","M","L","XL"], colors:["ink","cream","magenta"], name:{uz:"Gym mayka, nafas oluvchi mato", ru:"Спортивная майка, дышащая ткань", en:"Gym tank top, breathable fabric"}},
+  {id:15, cat:"gym", icon:"🩳", price:159000, stock:10, sizes:["S","M","L","XL"], colors:["ink","olive","gray"], name:{uz:"Sport shortik", ru:"Спортивные шорты", en:"Athletic shorts"}},
+  {id:16, cat:"oversize", icon:"👕", price:229000, stock:14, sizes:["S","M","L","XL"], colors:["cream","ink","olive"], name:{uz:"Oversize futbolka", ru:"Оверсайз футболка", en:"Oversized t-shirt"}},
+  {id:17, cat:"oversize", icon:"🧥", price:349000, stock:8, sizes:["S","M","L","XL"], colors:["indigo","ink","gray"], name:{uz:"Oversize xudi", ru:"Оверсайз худи", en:"Oversized hoodie"}},
+  {id:18, cat:"oversize", icon:"🧶", price:279000, stock:11, sizes:["S","M","L","XL"], colors:["cream","gold","gray"], name:{uz:"Oversize sviter", ru:"Оверсайз свитер", en:"Oversized sweater"}},
+  {id:19, cat:"gym", icon:"🏋️‍♂️", price:299000, old:359000, sale:true, stock:9, sizes:["S","M","L","XL"], colors:["ink","gray","indigo"], name:{uz:"Gym to'plam — shim va mayka birga", ru:"Gym-комплект — штаны и майка вместе", en:"Gym set — joggers & tank together"}},
+  {id:20, cat:"oversize", icon:"🧥", price:459000, old:549000, sale:true, stock:7, sizes:["S","M","L","XL"], colors:["cream","ink","olive"], name:{uz:"Oversize look to'plam — shim va ustki birga", ru:"Oversize-комплект — брюки и верх вместе", en:"Oversize look set — trousers & top together"}},
+];
+function productStock(p){ return typeof p.stock === 'number' ? p.stock : 99; }
+function cartQtyFor(id){ return cart.filter(c => c.id === id).reduce((s,c) => s + c.qty, 0); }
+let products = [];
+async function loadProducts(){
+  let p = await storeGet('products', true);
+  if(!p || !Array.isArray(p) || p.length === 0){ p = DEFAULT_PRODUCTS; await storeSet('products', p, true); }
+  else {
+    const existingIds = new Set(p.map(x => x.id));
+    const missing = DEFAULT_PRODUCTS.filter(d => !existingIds.has(d.id));
+    if(missing.length){ p = p.concat(missing); await storeSet('products', p, true); }
+  }
+  products = p;
+}
+async function saveProducts(){ await storeSet('products', products, true); }
+async function syncProductsFromServer(){
+  try{
+    const fresh = await storeGet('products', true);
+    if(Array.isArray(fresh) && fresh.length) products = fresh;
+  }catch(e){ /* server bilan bog'lanib bo'lmasa, joriy (eski) ro'yxat bilan davom etamiz */ }
+}
+
+let cart = [];
+let activeCat = 'barchasi';
+let searchQuery = '';
+function handleSearchInput(val){
+  searchQuery = val.trim().toLowerCase();
+  renderGrid();
+}
+function matchesSearch(p){
+  if(!searchQuery) return true;
+  const haystack = [p.name.uz, p.name.ru, p.name.en, catLabel(p.cat)].join(' ').toLowerCase();
+  return haystack.includes(searchQuery);
+}
+
+/* ===================== Subscription & delivery pricing ===================== */
+/* ===================== Delivery regions ===================== */
+const DEFAULT_REGIONS = [
+  {id:'tashkent_city', fee:15000, name:{uz:"Toshkent shahri", ru:"город Ташкент", en:"Tashkent city"}},
+  {id:'tashkent_region', fee:30000, name:{uz:"Toshkent viloyati", ru:"Ташкентская область", en:"Tashkent region"}},
+  {id:'other_regions', fee:45000, name:{uz:"Boshqa viloyatlar", ru:"Другие области", en:"Other regions"}},
+];
+let deliveryRegions = [];
+let selectedRegionId = null;
+async function loadDeliveryRegions(){
+  let r = await storeGet('deliveryRegions', true);
+  if(!r || !Array.isArray(r) || r.length === 0){ r = DEFAULT_REGIONS; await storeSet('deliveryRegions', r, true); }
+  deliveryRegions = r;
+  if(!selectedRegionId || !deliveryRegions.some(x => x.id === selectedRegionId)){
+    selectedRegionId = deliveryRegions[0] ? deliveryRegions[0].id : null;
+  }
+}
+async function saveDeliveryRegions(){ await storeSet('deliveryRegions', deliveryRegions, true); }
+function currentRegion(){ return deliveryRegions.find(r => r.id === selectedRegionId) || null; }
+function regionName(r){ return (r.name && r.name[lang]) || r.id; }
+function selectDeliveryRegion(id){
+  selectedRegionId = id;
+  renderCart();
+  updatePaySummary();
+  document.querySelectorAll('.region-select').forEach(sel => { if(sel.value !== id) sel.value = id; });
+}
+function regionSelectHtml(idPrefix){
+  if(deliveryRegions.length === 0) return '';
+  return `<select id="${idPrefix}" class="region-select" onchange="selectDeliveryRegion(this.value)">
+    ${deliveryRegions.map(r => `<option value="${r.id}" ${r.id===selectedRegionId?'selected':''}>${regionName(r)} — ${money(r.fee)}</option>`).join('')}
+  </select>`;
+}
+
+let DELIVERY_FEE = 25000;           // so'm, standard delivery fee added at checkout
+let SUBSCRIPTION_PRICE = 149000;    // so'm, one-time charge for the subscription period
+let SUBSCRIPTION_DAYS = 365;        // how many days of free delivery the subscription grants
+let PAYMENT_CARD_NUMBER = '8600 1234 5678 9012';  // card customers transfer payment to
+let PAYMENT_CARD_OWNER = 'KWEZR SHOP';            // name shown under the card number
+
+async function loadShopSettings(){
+  const s = await storeGet('shopSettings', true);
+  if(s){
+    if(typeof s.deliveryFee === 'number') DELIVERY_FEE = s.deliveryFee;
+    if(typeof s.subscriptionPrice === 'number') SUBSCRIPTION_PRICE = s.subscriptionPrice;
+    if(typeof s.subscriptionDays === 'number') SUBSCRIPTION_DAYS = s.subscriptionDays;
+    if(typeof s.paymentCardNumber === 'string') PAYMENT_CARD_NUMBER = s.paymentCardNumber;
+    if(typeof s.paymentCardOwner === 'string') PAYMENT_CARD_OWNER = s.paymentCardOwner;
+  }
+}
+async function saveShopSettings(){
+  await storeSet('shopSettings', {deliveryFee:DELIVERY_FEE, subscriptionPrice:SUBSCRIPTION_PRICE, subscriptionDays:SUBSCRIPTION_DAYS, paymentCardNumber:PAYMENT_CARD_NUMBER, paymentCardOwner:PAYMENT_CARD_OWNER}, true);
+}
+
+/* ===================== Hero banners (sale / new-arrival) — admin editable ===================== */
+let heroBanners = {
+  main: { image: null, price: '', season: '' },
+  sale: { image: null, price: '', label: '' },
+  newin: { image: null, price: '', label: '' }
+};
+async function loadHeroBanners(){
+  const b = await storeGet('heroBanners', true);
+  if(b){
+    if(b.main) heroBanners.main = b.main;
+    if(b.sale) heroBanners.sale = b.sale;
+    if(b.newin) heroBanners.newin = b.newin;
+  }
+}
+async function saveHeroBanners(){ await storeSet('heroBanners', heroBanners, true); }
+function applyHeroBanners(){
+  const img1 = document.getElementById('heroImg1'), tag1 = document.getElementById('heroTag1'), price1 = document.getElementById('heroPrice1'), eyebrow1 = document.getElementById('heroEyebrow1');
+  if(heroBanners.main.image){ img1.src = heroBanners.main.image; img1.style.display = 'block'; tag1.style.display = 'none'; }
+  else { img1.style.display = 'none'; tag1.style.display = 'block'; }
+  if(heroBanners.main.price){ price1.textContent = heroBanners.main.price; price1.classList.add('show'); }
+  else { price1.classList.remove('show'); }
+  if(heroBanners.main.season){ eyebrow1.textContent = heroBanners.main.season; }
+  else { eyebrow1.textContent = t('hero_eyebrow'); }
+
+  const img2 = document.getElementById('heroImg2'), tag2 = document.getElementById('heroTag2'), price2 = document.getElementById('heroPrice2'), eyebrow2 = document.getElementById('heroEyebrow2');
+  if(heroBanners.sale.image){ img2.src = heroBanners.sale.image; img2.style.display = 'block'; tag2.style.display = 'none'; }
+  else { img2.style.display = 'none'; tag2.style.display = 'block'; }
+  if(heroBanners.sale.price){ price2.textContent = heroBanners.sale.price; price2.classList.add('show'); }
+  else { price2.classList.remove('show'); }
+  if(heroBanners.sale.label){ eyebrow2.textContent = heroBanners.sale.label; }
+  else { eyebrow2.textContent = t('hero2_eyebrow'); }
+
+  const img3 = document.getElementById('heroImg3'), tag3 = document.getElementById('heroTag3'), price3 = document.getElementById('heroPrice3');
+  if(heroBanners.newin.image){ img3.src = heroBanners.newin.image; img3.style.display = 'block'; tag3.style.display = 'none'; }
+  else { img3.style.display = 'none'; tag3.style.display = 'block'; }
+  if(heroBanners.newin.price){ price3.textContent = heroBanners.newin.price; price3.classList.add('show'); }
+  else { price3.classList.remove('show'); }
+  const eyebrow3 = document.getElementById('heroEyebrow3');
+  if(heroBanners.newin.label){ eyebrow3.textContent = heroBanners.newin.label; }
+  else { eyebrow3.textContent = t('hero3_eyebrow'); }
+}
+function readImageFile(input, callback){
+  const file = input.files && input.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = () => callback(reader.result);
+  reader.readAsDataURL(file);
+}
+
+/* ===================== Promo codes ===================== */
+let promocodes = [];
+async function loadPromocodes(){ promocodes = (await storeGet('promocodes', true)) || []; }
+async function savePromocodes(){ await storeSet('promocodes', promocodes, true); }
+let appliedPromo = null; // {code, type, value}
+let promoError = '';
+function findPromo(code){
+  const norm = (code||'').trim().toUpperCase();
+  if(!norm) return null;
+  return promocodes.find(pc => pc.active !== false && pc.code.toUpperCase() === norm) || null;
+}
+function discountValue(){
+  if(!appliedPromo) return 0;
+  const subtotal = cartTotalValue();
+  if(subtotal <= 0) return 0;
+  let d = appliedPromo.type === 'percent' ? Math.round(subtotal * appliedPromo.value / 100) : appliedPromo.value;
+  return Math.min(d, subtotal);
+}
+function applyPromoCode(){
+  const input = document.getElementById('promoInput');
+  const code = input ? input.value : '';
+  const promo = findPromo(code);
+  const errEl = document.getElementById('promoError');
+  if(!promo){
+    if(errEl){ errEl.textContent = t('promo_invalid'); errEl.classList.add('show'); }
+    appliedPromo = null;
+    renderCart();
+    return;
+  }
+  appliedPromo = {code: promo.code, type: promo.type, value: promo.value};
+  if(errEl){ errEl.textContent = ''; errEl.classList.remove('show'); }
+  renderCart();
+}
+function removePromo(){
+  appliedPromo = null;
+  const errEl = document.getElementById('promoError');
+  if(errEl){ errEl.textContent = ''; errEl.classList.remove('show'); }
+  renderCart();
+}
+
+function subscriptionActive(user){
+  if(!user || !user.isSubscribed || !user.subscriptionExpiresAt) return false;
+  return new Date(user.subscriptionExpiresAt).getTime() > Date.now();
+}
+function subscriptionDaysLeft(user){
+  if(!subscriptionActive(user)) return 0;
+  const ms = new Date(user.subscriptionExpiresAt).getTime() - Date.now();
+  return Math.max(0, Math.ceil(ms / (1000*60*60*24)));
+}
+function deliveryFeeValue(){
+  if(subscriptionActive(currentUser)) return 0;
+  const region = currentRegion();
+  return region ? region.fee : DELIVERY_FEE;
+}
+function orderTotalValue(){ return Math.max(0, cartTotalValue() - discountValue()) + deliveryFeeValue(); }
+
+let selections = {}; // productId -> {size, color}
+function ensureSelection(p){
+  if(!selections[p.id]){ selections[p.id] = { size: (p.sizes && p.sizes[0]) || null, color: (p.colors && p.colors[0]) || null }; }
+  return selections[p.id];
+}
+function selectSize(id, size){ ensureSelection(products.find(p=>p.id===id)); selections[id].size = size; renderGrid(); if(document.getElementById('quickViewModal').classList.contains('show')) renderQuickView(id); }
+function selectColor(id, color){ ensureSelection(products.find(p=>p.id===id)); selections[id].color = color; renderGrid(); if(document.getElementById('quickViewModal').classList.contains('show')) renderQuickView(id); }
+
+function swatchesHtml(p, compact){
+  const sel = ensureSelection(p);
+  let html = '';
+  if(p.sizes && p.sizes.length){
+    html += `<div class="swatch-row">${p.sizes.map(s => `<button type="button" class="size-pill ${sel.size===s?'selected':''}" onclick="event.stopPropagation(); selectSize(${p.id}, '${s}')">${s}</button>`).join('')}</div>`;
+  }
+  if(p.colors && p.colors.length){
+    html += `<div class="swatch-row">${p.colors.map(c => `<button type="button" class="color-dot ${sel.color===c?'selected':''}" style="background:${colorHex(c)}" title="${colorName(c)}" onclick="event.stopPropagation(); selectColor(${p.id}, '${c}')"></button>`).join('')}</div>`;
+  }
+  return html;
+}
+function money(n){
+  const suffix = {uz:"so'm", ru:"сум", en:"UZS"}[lang];
+  return n.toLocaleString('ru-RU').replace(/,/g,' ') + " " + suffix;
+}
+function catLabel(c){ return t('cat_' + c); }
+
+function renderGrid(){
+  const grid = document.getElementById('productGrid');
+  let base = products;
+  if(activeCat === 'sale') base = products.filter(p => p.sale);
+  else if(activeCat !== 'barchasi') base = products.filter(p => p.cat === activeCat);
+  const filtered = base.filter(matchesSearch);
+  document.getElementById('resultCount').dataset.n = filtered.length;
+  document.getElementById('resultCount').textContent = filtered.length + " " + t('products_suffix');
+  if(filtered.length === 0){
+    grid.innerHTML = `<div class="empty-admin" style="grid-column:1/-1;">${t('no_search_results')}</div>`;
+    return;
+  }
+  grid.innerHTML = filtered.map((p, i) => {
+    const sel = ensureSelection(p);
+    const activeImage = productImageFor(p, sel.color);
+    const stock = productStock(p);
+    const outOfStock = stock <= 0;
+    return `
+    <div class="card">
+      <div class="card-media" style="${activeImage ? '' : 'background:'+mediaGradient(p, i)+';'}${outOfStock ? 'filter:grayscale(0.5);opacity:0.7;' : ''}" onclick="openQuickView(${p.id})">
+        ${activeImage ? `<img src="${activeImage}" class="card-media-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : ''}
+        <span class="card-emoji" style="${activeImage ? 'display:none;' : ''}">${p.icon}</span>
+        ${outOfStock ? `<span class="badge badge-out">${t('out_of_stock_label')}</span>` : (p.sale ? `<span class="badge">Sale</span>` : '')}
+        <button class="fav-btn ${isFavorite(p.id) ? 'active' : ''}" onclick="event.stopPropagation(); toggleFavorite(${p.id})">${isFavorite(p.id) ? '♥' : '♡'}</button>
+        <button class="qv-trigger" title="${t('quick_view_btn')}" onclick="event.stopPropagation(); openQuickView(${p.id})">🔍</button>
+      </div>
+      <div class="card-body">
+        <span class="card-cat">${catLabel(p.cat)}</span>
+        <span class="card-name card-name-link" onclick="openQuickView(${p.id})">${p.name[lang]}</span>
+        <div class="price-row">
+          <span class="price">${money(p.price)}</span>
+          ${p.old ? `<span class="old-price">${money(p.old)}</span>` : ''}
+        </div>
+        ${stockNoteHtml(stock)}
+        ${swatchesHtml(p)}
+        <button class="add-btn" id="add-${p.id}" ${outOfStock ? 'disabled' : ''} onclick="addToCart(${p.id}, this)">${outOfStock ? t('out_of_stock_label') : t('add_to_cart')}</button>
+      </div>
+    </div>
+  `;
+  }).join('');
+}
+function stockNoteHtml(stock){
+  if(stock <= 0) return `<span class="stock-note out">${t('out_of_stock_label')}</span>`;
+  if(stock <= 5) return `<span class="stock-note low">${t('low_stock_label').replace('{n}', stock)}</span>`;
+  return `<span class="stock-note ok">${t('in_stock_label')}</span>`;
+}
+document.getElementById('catScroll').addEventListener('click', e => {
+  if(e.target.classList.contains('pill')){
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    e.target.classList.add('active');
+    activeCat = e.target.dataset.cat;
+    renderGrid();
+  }
+});
+function navGo(e, cat){
+  e.preventDefault();
+  activeCat = cat || 'barchasi';
+  document.querySelectorAll('.pill').forEach(p => p.classList.toggle('active', p.dataset.cat === activeCat));
+  if(!document.querySelector('.pill.active')) document.querySelector('.pill[data-cat="barchasi"]').classList.add('active');
+  renderGrid();
+  document.getElementById('shop').scrollIntoView({behavior:'smooth'});
+}
+/* ===================== Favorites ===================== */
+let favorites = [];
+async function getFavorites(phone){ return (await storeGet('favorites:'+phone, true)) || []; }
+async function saveFavoritesForUser(phone, ids){ await storeSet('favorites:'+phone, ids, true); }
+function isFavorite(id){ return favorites.includes(id); }
+async function toggleFavorite(id){
+  if(!currentUser){ openModal('accountModal'); return; }
+  const idx = favorites.indexOf(id);
+  if(idx >= 0) favorites.splice(idx, 1); else favorites.push(id);
+  await saveFavoritesForUser(currentUser.phone, favorites);
+  renderGrid();
+  renderFavPanel();
+  renderFavCount();
+  if(document.getElementById('quickViewModal').classList.contains('show')) renderQuickView(id);
+}
+function renderFavCount(){
+  const el = document.getElementById('favCount');
+  if(!el) return;
+  if(!currentUser || favorites.length === 0){ el.style.display = 'none'; return; }
+  el.style.display = 'flex';
+  el.textContent = favorites.length > 9 ? '9+' : favorites.length;
+}
+function renderFavPanel(){
+  const wrap = document.getElementById('favItems');
+  if(!wrap) return;
+  const favProducts = favorites.map(id => products.find(p => p.id === id)).filter(Boolean);
+  wrap.innerHTML = favProducts.length === 0 ? `<div class="empty-note">${t('no_favorites')}</div>` :
+    favProducts.map((p) => {
+      const sel = ensureSelection(p);
+      const img = productImageFor(p, sel.color);
+      const idx = products.indexOf(p);
+      return `
+      <div class="cart-item">
+        <div class="thumb" style="${img ? 'background-image:url('+img+');background-size:cover;background-position:center;' : 'background:'+mediaGradient(p, idx)+';'}">${img ? '' : p.icon}</div>
+        <div class="info">
+          <div class="n">${p.name[lang]}</div>
+          <div class="p">${money(p.price)}</div>
+          <button class="btn-sm btn btn-primary" style="margin-top:6px;" onclick="addToCart(${p.id}); togglePanel('favPanel', false); togglePanel('cartPanel', true);">${t('add_to_cart')}</button>
+        </div>
+        <button class="remove-item" onclick="toggleFavorite(${p.id})">✕</button>
+      </div>`;
+    }).join('');
+}
+
+/* ===================== Notifications ===================== */
+let userNotifications = [];
+async function getNotifications(phone){ return (await storeGet('notifications:'+phone, true)) || []; }
+async function saveNotifications(phone, list){ await storeSet('notifications:'+phone, list, true); }
+async function pushNotification(phone, notif){
+  const list = await getNotifications(phone);
+  list.unshift({ id: 'N'+Date.now()+Math.floor(Math.random()*1000), read:false, date:new Date().toISOString(), ...notif });
+  const trimmed = list.slice(0, 50);
+  await saveNotifications(phone, trimmed);
+  if(currentUser && currentUser.phone === phone){ userNotifications = trimmed; renderNotifArea(); }
+}
+function notifText(n){
+  if(n.type === 'order_status') return t('notif_order_status').replace('{id}', n.orderId).replace('{status}', t('status_'+n.status));
+  if(n.type === 'payment_confirmed') return t('notif_payment_confirmed').replace('{id}', n.orderId);
+  if(n.type === 'subscription_confirmed') return t('notif_subscription_confirmed');
+  if(n.type === 'subscription_rejected') return t('notif_subscription_rejected');
+  return '';
+}
+function renderNotifArea(){
+  const area = document.getElementById('notifArea');
+  if(!area) return;
+  if(!currentUser){ area.innerHTML = ''; return; }
+  const unread = userNotifications.filter(n => !n.read).length;
+  area.innerHTML = `
+    <button class="icon-btn" onclick="toggleNotifDropdown()">🔔${unread > 0 ? `<span class="cart-count">${unread > 9 ? '9+' : unread}</span>` : ''}</button>
+    <div class="notif-dropdown" id="notifDropdown">
+      ${userNotifications.length === 0 ? `<div class="notif-empty">${t('no_notifications')}</div>` :
+        userNotifications.slice(0,20).map(n => `<div class="notif-item ${n.read ? '' : 'unread'}"><div>${notifText(n)}</div><div class="notif-date">${new Date(n.date).toLocaleString()}</div></div>`).join('')}
+    </div>`;
+}
+async function toggleNotifDropdown(){
+  const dd = document.getElementById('notifDropdown');
+  if(!dd) return;
+  const opening = !dd.classList.contains('show');
+  document.querySelectorAll('.notif-dropdown, .account-menu').forEach(el => el.classList.remove('show'));
+  if(opening){
+    dd.classList.add('show');
+    if(currentUser && userNotifications.some(n => !n.read)){
+      userNotifications.forEach(n => n.read = true);
+      await saveNotifications(currentUser.phone, userNotifications);
+      renderNotifArea();
+      document.getElementById('notifDropdown')?.classList.add('show');
+    }
+  }
+}
+
+function addToCart(id, btn){
+  const product = products.find(p => p.id === id);
+  const stock = productStock(product);
+  if(stock <= 0) return;
+  if(cartQtyFor(id) >= stock){
+    if(btn){ const orig = btn.textContent; btn.textContent = t('out_of_stock_short'); btn.classList.add('shake');
+      setTimeout(() => { btn.textContent = orig; btn.classList.remove('shake'); }, 900); }
+    return;
+  }
+  const sel = ensureSelection(product);
+  const size = sel.size || null;
+  const color = sel.color || null;
+  const key = id + '-' + (size||'-') + '-' + (color||'-');
+  const existing = cart.find(c => c.key === key);
+  if(existing){ existing.qty++; } else { cart.push({...product, qty:1, size, color, key}); }
+  if(btn){ btn.textContent = t('added'); btn.classList.add('added');
+    setTimeout(() => { btn.textContent = t('add_to_cart'); btn.classList.remove('added'); }, 1000); }
+  renderCart();
+}
+function removeFromCart(key){ cart = cart.filter(c => c.key !== key); renderCart(); }
+function cartTotalValue(){ return cart.reduce((s,c) => s + c.price * c.qty, 0); }
+function itemThumbBg(c, i){
+  if(c.color){ const hex = colorHex(c.color); return `linear-gradient(135deg, ${hex}, ${shadeColor(hex,-32)})`; }
+  return gradients[i % gradients.length];
+}
+function renderCart(){
+  document.getElementById('cartCount').textContent = cart.reduce((s,c) => s + c.qty, 0);
+  const itemsEl = document.getElementById('cartItems');
+  itemsEl.innerHTML = cart.length === 0 ? `<div class="empty-note">${t('cart_empty')}</div>` :
+    cart.map((c, i) => `
+      <div class="cart-item">
+        <div class="thumb" style="${(function(){ const img = productImageFor(c, c.color); return img ? 'background-image:url('+img+');background-size:cover;background-position:center;' : 'background:'+itemThumbBg(c, i)+';'; })()}">${productImageFor(c, c.color) ? '' : c.icon}</div>
+        <div class="info">
+          <div class="n">${c.name[lang]} ${c.qty > 1 ? '× ' + c.qty : ''}</div>
+          <div class="p" style="opacity:0.7;">${[c.size, c.color ? colorName(c.color) : null].filter(Boolean).join(' · ')}</div>
+          <div class="p">${money(c.price * c.qty)}</div>
+        </div>
+        <button class="remove-item" onclick="removeFromCart('${c.key}')">✕</button>
+      </div>`).join('');
+  const fee = deliveryFeeValue();
+  const disc = discountValue();
+  document.getElementById('cartSubtotal').textContent = money(cartTotalValue());
+  document.getElementById('cartDiscountRow').style.display = disc > 0 ? 'flex' : 'none';
+  document.getElementById('cartDiscount').textContent = '−' + money(disc);
+  const regionWrap = document.getElementById('cartRegionSelectWrap');
+  if(regionWrap) regionWrap.innerHTML = regionSelectHtml('cartRegionSelect');
+  document.getElementById('cartDelivery').textContent = fee === 0 ? t('free_label') : money(fee);
+  document.getElementById('cartTotal').textContent = money(orderTotalValue());
+  const inputRow = document.getElementById('promoInputRow');
+  const appliedRow = document.getElementById('promoAppliedRow');
+  if(inputRow && appliedRow){
+    if(appliedPromo){
+      inputRow.style.display = 'none';
+      appliedRow.style.display = 'flex';
+      const label = appliedPromo.type === 'percent' ? `${appliedPromo.value}%` : money(appliedPromo.value);
+      document.getElementById('promoChipText').textContent = `${appliedPromo.code} — ${t('discount_label')} ${label}`;
+    } else {
+      inputRow.style.display = 'flex';
+      appliedRow.style.display = 'none';
+    }
+  }
+}
+
+/* ===================== Quick view ===================== */
+function openQuickView(id){
+  renderQuickView(id);
+  openModal('quickViewModal');
+}
+function renderQuickView(id){
+  const p = products.find(x => x.id === id);
+  if(!p) return;
+  const idx = products.indexOf(p);
+  const sel = ensureSelection(p);
+  const activeImage = productImageFor(p, sel.color);
+  const stock = productStock(p);
+  const outOfStock = stock <= 0;
+  document.getElementById('qvBody').innerHTML = `
+    <div class="qv-media" style="${activeImage ? '' : 'background:'+mediaGradient(p, idx)+';'}">
+      ${activeImage ? `<img src="${activeImage}" class="card-media-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : ''}
+      <span style="${activeImage ? 'display:none;' : ''}">${p.icon}</span>
+    </div>
+    <div class="qv-info">
+      <span class="card-cat">${catLabel(p.cat)}</span>
+      <h3>${p.name[lang]}</h3>
+      <div class="price-row">
+        <span class="price">${money(p.price)}</span>
+        ${p.old ? `<span class="old-price">${money(p.old)}</span>` : ''}
+      </div>
+      <div style="margin:2px 0 4px;">${stockNoteHtml(stock)}</div>
+      <div class="qv-section">${swatchesHtml(p)}</div>
+      <button class="btn btn-primary btn-block" id="qv-add-${p.id}" ${outOfStock ? 'disabled' : ''} onclick="addToCart(${p.id}, this)">${outOfStock ? t('out_of_stock_label') : t('add_to_cart')}</button>
+      <button class="btn btn-ghost btn-block" style="margin-top:8px;" onclick="toggleFavorite(${p.id})">${isFavorite(p.id) ? '♥ ' + t('remove_favorite_btn') : '♡ ' + t('add_favorite_btn')}</button>
+    </div>
+  `;
+}
+
+/* ===================== Panels / modals ===================== */
+function togglePanel(id, open){
+  document.getElementById(id).classList.toggle('open', open);
+  document.getElementById('overlay').classList.toggle('show', open);
+}
+function openModal(id){
+  document.getElementById(id).classList.add('show');
+  document.getElementById('overlay').classList.add('show');
+}
+function closeAll(){
+  document.querySelectorAll('.side-panel').forEach(p => p.classList.remove('open'));
+  document.querySelectorAll('.modal-wrap').forEach(p => p.classList.remove('show'));
+  document.getElementById('overlay').classList.remove('show');
+  document.getElementById('accountMenu')?.classList.remove('show');
+}
+
+/* ===================== Account ===================== */
+let currentUser = null;
+
+function switchAuthTab(tab){
+  document.getElementById('tabLogin').classList.toggle('active', tab==='login');
+  document.getElementById('tabRegister').classList.toggle('active', tab==='register');
+  document.getElementById('loginView').classList.toggle('active', tab==='login');
+  document.getElementById('registerView').classList.toggle('active', tab==='register');
+}
+
+async function getUsers(){ return (await storeGet('users', true)) || {}; }
+async function saveUsers(users){ await storeSet('users', users, true); }
+async function getOrders(){ return (await storeGet('orders', true)) || []; }
+async function saveOrders(orders){ await storeSet('orders', orders, true); }
+
+async function doRegister(){
+  const name = document.getElementById('regName').value.trim();
+  const phone = document.getElementById('regPhone').value.trim();
+  const pass = document.getElementById('regPass').value;
+  const errEl = document.getElementById('regError');
+  if(!name || !phone || !pass){ errEl.textContent = t('fill_all'); errEl.classList.add('show'); return; }
+  const users = await getUsers();
+  if(users[phone]){ errEl.textContent = t('user_exists'); errEl.classList.add('show'); return; }
+  errEl.classList.remove('show');
+  users[phone] = {name, phone, pass, isAdmin:false, isSubscribed:false, registeredAt:new Date().toISOString()};
+  await saveUsers(users);
+  currentUser = {name, phone, isAdmin:false, isSubscribed:false, subscriptionExpiresAt:null};
+  await storeSet('session', currentUser, false);
+  favorites = await getFavorites(phone);
+  userNotifications = await getNotifications(phone);
+  closeAll(); renderAccountArea(); renderSubscribeButton(); renderCart(); renderGrid(); renderFavCount(); renderFavPanel(); renderNotifArea();
+}
+async function doLogin(){
+  const phone = document.getElementById('loginPhone').value.trim();
+  const pass = document.getElementById('loginPass').value;
+  const errEl = document.getElementById('loginError');
+  if(!phone || !pass){ errEl.textContent = t('fill_all'); errEl.classList.add('show'); return; }
+  const users = await getUsers();
+  const user = users[phone];
+  if(!user || user.pass !== pass){ errEl.textContent = t('wrong_creds'); errEl.classList.add('show'); return; }
+  errEl.classList.remove('show');
+  currentUser = {name:user.name, phone:user.phone, isAdmin: !!user.isAdmin, isSubscribed: !!user.isSubscribed, subscriptionExpiresAt: user.subscriptionExpiresAt || null};
+  await storeSet('session', currentUser, false);
+  favorites = await getFavorites(user.phone);
+  userNotifications = await getNotifications(user.phone);
+  closeAll(); renderAccountArea(); renderSubscribeButton(); renderCart(); renderGrid(); renderFavCount(); renderFavPanel(); renderNotifArea();
+}
+async function doLogout(){
+  currentUser = null;
+  favorites = [];
+  userNotifications = [];
+  await storeDelete('session', false);
+  renderAccountArea(); renderSubscribeButton(); renderGrid(); renderFavCount(); renderFavPanel(); renderNotifArea();
+}
+function renderAccountArea(){
+  const area = document.getElementById('accountArea');
+  if(currentUser){
+    const initial = currentUser.name.charAt(0).toUpperCase();
+    area.innerHTML = `
+      <div class="account-chip" onclick="toggleAccountMenu()">
+        <div class="account-avatar">${initial}</div>
+        <span>${currentUser.name.split(' ')[0]}</span>
+      </div>
+      <div class="account-menu" id="accountMenu">
+        <button onclick="openOrders()">📦 ${t('my_orders')}</button>
+        ${currentUser.isAdmin ? `<button onclick="openAdminPanel()">🛠 ${t('admin_panel')}</button>` : ''}
+        <button onclick="doLogout()">↩ ${t('logout')}</button>
+      </div>`;
+  } else {
+    area.innerHTML = `<button class="icon-btn" onclick="openModal('accountModal')">👤</button>`;
+  }
+}
+function toggleAccountMenu(){ document.getElementById('accountMenu').classList.toggle('show'); }
+
+/* ===================== Checkout / mock payment ===================== */
+function startCheckout(){
+  if(cart.length === 0) return;
+  if(!currentUser){
+    togglePanel('cartPanel', false);
+    openModal('accountModal');
+    document.getElementById('loginError').textContent = t('login_required');
+    document.getElementById('loginError').classList.add('show');
+    return;
+  }
+  togglePanel('cartPanel', false);
+  document.getElementById('dName').value = currentUser.name;
+  document.getElementById('dPhone').value = currentUser.phone;
+  const dRegionWrap = document.getElementById('dRegionSelectWrap');
+  if(dRegionWrap) dRegionWrap.innerHTML = regionSelectHtml('dRegionSelect');
+  document.querySelectorAll('#checkoutModal .form-view').forEach(v => v.classList.remove('active'));
+  document.getElementById('stepDelivery').classList.add('active');
+  document.getElementById('dot1').classList.add('active');
+  document.getElementById('dot2').classList.remove('active');
+  document.getElementById('dot3').classList.remove('active');
+  openModal('checkoutModal');
+}
+let receiptDataUrl = null;
+function goToPayment(){
+  const name = document.getElementById('dName').value.trim();
+  const phone = document.getElementById('dPhone').value.trim();
+  const address = document.getElementById('dAddress').value.trim();
+  const errEl = document.getElementById('deliveryError');
+  if(!name || !phone || !address){ errEl.textContent = t('fill_all'); errEl.classList.add('show'); return; }
+  errEl.classList.remove('show');
+  document.getElementById('stepDelivery').classList.remove('active');
+  document.getElementById('stepPayment').classList.add('active');
+  document.getElementById('dot2').classList.add('active');
+  updatePaySummary();
+  document.getElementById('payCardNumber').textContent = PAYMENT_CARD_NUMBER;
+  document.getElementById('payCardOwner').textContent = PAYMENT_CARD_OWNER;
+  removeReceipt();
+  document.getElementById('paymentError').classList.remove('show');
+}
+function updatePaySummary(){
+  const summaryEl = document.getElementById('paySummary');
+  if(!summaryEl) return;
+  const fee = deliveryFeeValue();
+  const disc = discountValue();
+  const region = currentRegion();
+  summaryEl.innerHTML = `
+    <div class="order-row"><span>${t('subtotal_label')}</span><span class="mono">${money(cartTotalValue())}</span></div>
+    ${disc > 0 ? `<div class="order-row"><span>${t('discount_label')}${appliedPromo ? ' ('+appliedPromo.code+')' : ''}</span><span class="mono">−${money(disc)}</span></div>` : ''}
+    <div class="order-row"><span>${t('delivery_fee_label')}${region ? ' ('+regionName(region)+')' : ''}</span><span class="mono">${fee === 0 ? t('free_label') : money(fee)}</span></div>
+    <div class="order-row" style="font-weight:700; border-bottom:none;"><span>${t('cart_total')}</span><span class="mono">${money(orderTotalValue())}</span></div>`;
+}
+function handleReceiptUpload(event){
+  const file = event.target.files && event.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    receiptDataUrl = e.target.result;
+    document.getElementById('receiptPreview').src = receiptDataUrl;
+    document.getElementById('receiptPreviewWrap').style.display = 'block';
+    document.getElementById('receiptUploadBox').style.display = 'none';
+    document.getElementById('paymentError').classList.remove('show');
+  };
+  reader.readAsDataURL(file);
+}
+function removeReceipt(){
+  receiptDataUrl = null;
+  const input = document.getElementById('receiptInput');
+  if(input) input.value = '';
+  const wrap = document.getElementById('receiptPreviewWrap');
+  const box = document.getElementById('receiptUploadBox');
+  if(wrap) wrap.style.display = 'none';
+  if(box) box.style.display = 'block';
+}
+async function doPay(){
+  const errEl = document.getElementById('paymentError');
+  if(!receiptDataUrl){
+    errEl.textContent = t('receipt_required'); errEl.classList.add('show'); return;
+  }
+  errEl.classList.remove('show');
+  const payBtn = document.getElementById('payBtn');
+  payBtn.disabled = true;
+  const originalText = payBtn.textContent;
+  payBtn.textContent = '...';
+  await new Promise(r => setTimeout(r, 700)); // simulate upload
+
+  const itemsTotal = cartTotalValue();
+  const deliveryFee = deliveryFeeValue();
+  const discount = discountValue();
+  const region = currentRegion();
+  const order = {
+    id: 'ATL-' + Math.floor(100000 + Math.random()*899999),
+    phone: currentUser.phone,
+    customerName: currentUser.name,
+    date: new Date().toISOString(),
+    items: cart.map(c => ({id:c.id, name:c.name[lang], qty:c.qty, price:c.price, size:c.size, color:c.color})),
+    itemsTotal: itemsTotal,
+    deliveryFee: deliveryFee,
+    deliveryRegion: region ? region.name.uz : null,
+    discount: discount,
+    promoCode: appliedPromo ? appliedPromo.code : null,
+    total: Math.max(0, itemsTotal - discount) + deliveryFee,
+    method: 'receipt',
+    receiptImage: receiptDataUrl,
+    paymentConfirmed: false,
+    address: document.getElementById('dAddress').value.trim(),
+    status: 'new',
+  };
+  const orders = await getOrders();
+  orders.unshift(order);
+  await saveOrders(orders);
+  notifyBackend(order); // Telegram bot orqali adminga bildirishnoma
+
+  cart.forEach(c => {
+    const p = products.find(x => x.id === c.id);
+    if(p){ p.stock = Math.max(0, productStock(p) - c.qty); }
+  });
+  await saveProducts();
+  renderGrid();
+
+  document.getElementById('orderId').textContent = order.id;
+  document.getElementById('orderSummary').innerHTML = order.items.map(it =>
+    `<div class="order-row"><span>${it.name} × ${it.qty}</span><span class="mono">${money(it.price*it.qty)}</span></div>`
+  ).join('')
+  + (order.discount > 0 ? `<div class="order-row"><span>${t('discount_label')}${order.promoCode ? ' ('+order.promoCode+')' : ''}</span><span class="mono">−${money(order.discount)}</span></div>` : '')
+  + `<div class="order-row"><span>${t('delivery_fee_label')}</span><span class="mono">${order.deliveryFee === 0 ? t('free_label') : money(order.deliveryFee)}</span></div>`
+  + `<div class="order-row" style="font-weight:700; border-bottom:none;"><span>${t('cart_total')}</span><span class="mono">${money(order.total)}</span></div>`;
+
+  document.getElementById('stepPayment').classList.remove('active');
+  document.getElementById('stepConfirm').classList.add('active');
+  document.getElementById('dot3').classList.add('active');
+
+  payBtn.disabled = false; payBtn.textContent = originalText;
+  removeReceipt();
+  cart = []; appliedPromo = null; renderCart();
+}
+
+async function openOrders(){
+  document.getElementById('accountMenu')?.classList.remove('show');
+  const allOrders = await getOrders();
+  const orders = allOrders.filter(o => o.phone === currentUser.phone);
+  const listEl = document.getElementById('ordersList');
+  listEl.innerHTML = orders.length === 0 ? `<div class="empty-note">${t('no_orders')}</div>` :
+    orders.map(o => `
+      <div class="order-card">
+        <div class="oid">${o.id} · ${new Date(o.date).toLocaleDateString()} · <span class="mini-badge">${t('status_' + (o.status||'new'))}</span> ${o.method==='receipt' ? `<span class="mini-badge ${o.paymentConfirmed?'confirmed':'pending'}">${o.paymentConfirmed?t('payment_confirmed'):t('payment_pending')}</span>` : ''}</div>
+        ${o.deliveryRegion ? `<div class="order-row"><span>${t('delivery_region_label')}</span><span>${o.deliveryRegion}</span></div>` : ''}
+        ${o.items.map(it => `<div class="order-row"><span>${it.name}${it.size?' · '+it.size:''}${it.color?' · '+colorName(it.color):''} × ${it.qty}</span><span class="mono">${money(it.price*it.qty)}</span></div>`).join('')}
+        ${(o.discount||0) > 0 ? `<div class="order-row"><span>${t('discount_label')}${o.promoCode ? ' ('+o.promoCode+')' : ''}</span><span class="mono">−${money(o.discount)}</span></div>` : ''}
+        <div class="order-row"><span>${t('delivery_fee_label')}</span><span class="mono">${(o.deliveryFee||0) === 0 ? t('free_label') : money(o.deliveryFee)}</span></div>
+        <div class="order-row" style="font-weight:700; border-bottom:none;"><span>${t('cart_total')}</span><span class="mono">${money(o.total)}</span></div>
+      </div>`).join('');
+  openModal('ordersModal');
+}
+
+/* ===================== Admin panel ===================== */
+let adminTab = 'products';
+let adminUsersCache = {};
+let adminOrdersCache = [];
+let editingProductId = null;
+let expandedOrderId = null;
+
+async function refreshAdminData(){
+  adminUsersCache = await getUsers();
+  adminOrdersCache = await getOrders();
+}
+async function openAdminPanel(){
+  document.getElementById('accountMenu')?.classList.remove('show');
+  adminTab = 'products';
+  await refreshAdminData();
+  document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === 'products'));
+  renderAdminTab();
+  openModal('adminModal');
+}
+function switchAdminTab(tabName){
+  adminTab = tabName;
+  document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tabName));
+  renderAdminTab();
+}
+function renderAdminTab(){
+  if(adminTab === 'products') renderAdminProducts();
+  else if(adminTab === 'orders') renderAdminOrders();
+  else if(adminTab === 'users') renderAdminUsers();
+  else if(adminTab === 'promo') renderAdminPromo();
+  else if(adminTab === 'banners') renderAdminBanners();
+  else renderAdminSettings();
+}
+
+/* --- Banners tab (sale banner & new-arrival banner: image + price) --- */
+let bannerDraft = { main: null, sale: null, newin: null };
+function renderAdminBanners(){
+  bannerDraft.main = { image: heroBanners.main.image, price: heroBanners.main.price, season: heroBanners.main.season };
+  bannerDraft.sale = { image: heroBanners.sale.image, price: heroBanners.sale.price, label: heroBanners.sale.label };
+  bannerDraft.newin = { image: heroBanners.newin.image, price: heroBanners.newin.price, label: heroBanners.newin.label };
+  const body = document.getElementById('adminBody');
+  body.innerHTML = `
+    <div class="admin-banners-form">
+      <h4 style="margin-bottom:12px;" data-i18n="main_banner_label">Asosiy banner (fasl uslubi)</h4>
+      <div class="field">
+        <label data-i18n="banner_season_label">Fasl yorlig'i (masalan: Yozgi to'plam · 2026)</label>
+        <input id="bnMainSeason" placeholder="Yozgi to'plam · 2026" value="${(bannerDraft.main.season||'').replace(/"/g,'&quot;')}">
+      </div>
+      <div class="field">
+        <label data-i18n="banner_image_label">Rasm (kompyuteringizdan yuklang)</label>
+        <input type="file" accept="image/*" id="bnMainImgInput" onchange="onBannerImageChange('main', this)">
+        <div id="bnMainPreviewWrap" style="margin-top:10px;">${bannerDraft.main.image ? `<img src="${bannerDraft.main.image}" style="width:140px; border-radius:10px; display:block;">` : ''}</div>
+      </div>
+      <div class="field">
+        <label data-i18n="banner_price_label">Narx / chegirma matni (masalan: -30% yoki 249 000 so'm)</label>
+        <input id="bnMainPrice" value="${(bannerDraft.main.price||'').replace(/"/g,'&quot;')}">
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="saveBannerAdmin('main')" data-i18n="save_btn">Saqlash</button>
+      <span class="error-msg" id="bnMainSaved" style="color:var(--indigo); opacity:0.8; margin-left:10px;"></span>
+    </div>
+    <div class="admin-banners-form" style="margin-top:30px; padding-top:24px; border-top:1px solid var(--line);">
+      <h4 style="margin-bottom:12px;" data-i18n="sale_banner_label">Chegirma banneri</h4>
+      <div class="field">
+        <label data-i18n="banner_season_label">Yorliq nomi (masalan: Chegirma · -30%)</label>
+        <input id="bnSaleLabel" placeholder="Chegirma · -30%" value="${(bannerDraft.sale.label||'').replace(/"/g,'&quot;')}">
+      </div>
+      <div class="field">
+        <label data-i18n="banner_image_label">Rasm (kompyuteringizdan yuklang)</label>
+        <input type="file" accept="image/*" id="bnSaleImgInput" onchange="onBannerImageChange('sale', this)">
+        <div id="bnSalePreviewWrap" style="margin-top:10px;">${bannerDraft.sale.image ? `<img src="${bannerDraft.sale.image}" style="width:140px; border-radius:10px; display:block;">` : ''}</div>
+      </div>
+      <div class="field">
+        <label data-i18n="banner_price_label">Narx / chegirma matni (masalan: -30% yoki 249 000 so'm)</label>
+        <input id="bnSalePrice" value="${(bannerDraft.sale.price||'').replace(/"/g,'&quot;')}">
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="saveBannerAdmin('sale')" data-i18n="save_btn">Saqlash</button>
+      <span class="error-msg" id="bnSaleSaved" style="color:var(--indigo); opacity:0.8; margin-left:10px;"></span>
+    </div>
+    <div class="admin-banners-form" style="margin-top:30px; padding-top:24px; border-top:1px solid var(--line);">
+      <h4 style="margin-bottom:12px;" data-i18n="new_banner_label">Qishki kolleksiya banneri</h4>
+      <div class="field">
+        <label data-i18n="banner_season_label">Yorliq nomi (masalan: Yangi kolleksiya)</label>
+        <input id="bnNewLabel" placeholder="Yangi kolleksiya" value="${(bannerDraft.newin.label||'').replace(/"/g,'&quot;')}">
+      </div>
+      <div class="field">
+        <label data-i18n="banner_image_label">Rasm (kompyuteringizdan yuklang)</label>
+        <input type="file" accept="image/*" id="bnNewImgInput" onchange="onBannerImageChange('newin', this)">
+        <div id="bnNewPreviewWrap" style="margin-top:10px;">${bannerDraft.newin.image ? `<img src="${bannerDraft.newin.image}" style="width:140px; border-radius:10px; display:block;">` : ''}</div>
+      </div>
+      <div class="field">
+        <label data-i18n="banner_price_label">Narx / chegirma matni (masalan: -30% yoki 249 000 so'm)</label>
+        <input id="bnNewPrice" value="${(bannerDraft.newin.price||'').replace(/"/g,'&quot;')}">
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="saveBannerAdmin('newin')" data-i18n="save_btn">Saqlash</button>
+      <span class="error-msg" id="bnNewSaved" style="color:var(--indigo); opacity:0.8; margin-left:10px;"></span>
+    </div>`;
+}
+function onBannerImageChange(key, input){
+  readImageFile(input, (dataUrl) => {
+    bannerDraft[key].image = dataUrl;
+    const wrapId = key === 'main' ? 'bnMainPreviewWrap' : (key === 'sale' ? 'bnSalePreviewWrap' : 'bnNewPreviewWrap');
+    document.getElementById(wrapId).innerHTML = `<img src="${dataUrl}" style="width:140px; border-radius:10px; display:block;">`;
+  });
+}
+async function saveBannerAdmin(key){
+  if(key === 'main'){
+    bannerDraft.main.price = document.getElementById('bnMainPrice').value.trim();
+    bannerDraft.main.season = document.getElementById('bnMainSeason').value.trim();
+    heroBanners.main = { image: bannerDraft.main.image, price: bannerDraft.main.price, season: bannerDraft.main.season };
+  } else {
+    const priceInput = document.getElementById(key === 'sale' ? 'bnSalePrice' : 'bnNewPrice');
+    const labelInput = document.getElementById(key === 'sale' ? 'bnSaleLabel' : 'bnNewLabel');
+    bannerDraft[key].price = priceInput.value.trim();
+    bannerDraft[key].label = labelInput.value.trim();
+    heroBanners[key] = { image: bannerDraft[key].image, price: bannerDraft[key].price, label: bannerDraft[key].label };
+  }
+  await saveHeroBanners();
+  applyHeroBanners();
+  const msgId = key === 'main' ? 'bnMainSaved' : (key === 'sale' ? 'bnSaleSaved' : 'bnNewSaved');
+  const msg = document.getElementById(msgId);
+  msg.textContent = t('settings_saved'); msg.classList.add('show');
+  setTimeout(() => msg.classList.remove('show'), 2000);
+}
+
+/* --- Settings tab (subscription price/days, delivery fee) --- */
+function renderAdminSettings(){
+  const body = document.getElementById('adminBody');
+  body.innerHTML = `
+    <div class="admin-settings-form">
+      <div class="field">
+        <label data-i18n="subscription_price_label">Obuna narxi (so'm)</label>
+        <input id="setSubPrice" type="number" min="0" step="1000" value="${SUBSCRIPTION_PRICE}">
+      </div>
+      <div class="field">
+        <label data-i18n="subscription_days_label">Obuna muddati (kun)</label>
+        <input id="setSubDays" type="number" min="1" step="1" value="${SUBSCRIPTION_DAYS}">
+      </div>
+      <div class="field">
+        <label data-i18n="delivery_fee_admin_label">Standart yetkazib berish narxi (so'm)</label>
+        <input id="setDeliveryFee" type="number" min="0" step="1000" value="${DELIVERY_FEE}">
+      </div>
+      <div class="field">
+        <label data-i18n="card_number_label">To'lov uchun karta raqami</label>
+        <input id="setCardNumber" value="${PAYMENT_CARD_NUMBER}">
+      </div>
+      <div class="field">
+        <label data-i18n="card_owner_label">Karta egasi</label>
+        <input id="setCardOwner" value="${PAYMENT_CARD_OWNER}">
+      </div>
+      <div class="error-msg" id="settingsSaved" style="color:var(--indigo); opacity:0.8;"></div>
+      <button class="btn btn-primary" style="margin-top:6px;" data-i18n="save_btn" onclick="saveAdminSettings()">Saqlash</button>
+    </div>
+    <div class="admin-regions-section" style="margin-top:30px; padding-top:24px; border-top:1px solid var(--line);">
+      <h4 style="margin-bottom:12px;" data-i18n="delivery_regions_title">Yetkazib berish hududlari</h4>
+      <div class="admin-toolbar">
+        <span class="count mono">${deliveryRegions.length}</span>
+        <button class="btn btn-primary btn-sm" onclick="openRegionForm(null)">${t('add_region')}</button>
+      </div>
+      <div class="admin-form" id="regionForm"></div>
+      <table class="admin-table">
+        <thead><tr><th>${t('region_name_col')}</th><th>${t('region_fee_col')}</th><th></th></tr></thead>
+        <tbody>${deliveryRegions.map(r => `
+          <tr>
+            <td>${r.name.uz}</td>
+            <td class="mono">${money(r.fee)}</td>
+            <td>
+              <button class="icon-action" title="${t('edit_label')}" onclick="openRegionForm('${r.id}')">✏️</button>
+              <button class="icon-action" title="${t('delete_label')}" onclick="deleteRegionAdmin('${r.id}')">🗑</button>
+            </td>
+          </tr>`).join('') || `<tr><td colspan="3" class="empty-admin">${t('no_regions_admin')}</td></tr>`}</tbody>
+      </table>
+    </div>`;
+}
+let editingRegionId = null;
+function openRegionForm(id){
+  editingRegionId = id;
+  const r = id ? deliveryRegions.find(x => x.id === id) : null;
+  const formEl = document.getElementById('regionForm');
+  formEl.classList.add('show');
+  formEl.innerHTML = `
+    <h4 style="margin-bottom:12px;">${id ? t('edit_region') : t('add_region')}</h4>
+    <div class="admin-form-grid">
+      <div class="field field-full"><label>${t('region_name_col')}</label><input id="rgName" value="${r ? r.name.uz.replace(/"/g,'&quot;') : ''}"></div>
+      <div class="field"><label>${t('region_fee_col')}</label><input id="rgFee" type="number" min="0" step="1000" value="${r ? r.fee : ''}"></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-primary btn-sm" onclick="saveRegionForm()">${t('save_btn')}</button>
+      <button class="btn btn-ghost btn-sm" onclick="closeRegionForm()">${t('cancel_btn')}</button>
+    </div>`;
+  formEl.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+function closeRegionForm(){
+  editingRegionId = null;
+  const formEl = document.getElementById('regionForm');
+  formEl.classList.remove('show'); formEl.innerHTML = '';
+}
+async function saveRegionForm(){
+  const name = document.getElementById('rgName').value.trim();
+  const fee = parseInt(document.getElementById('rgFee').value, 10);
+  if(!name || isNaN(fee) || fee < 0) return;
+  if(editingRegionId){
+    const r = deliveryRegions.find(x => x.id === editingRegionId);
+    r.name = {uz:name, ru:name, en:name}; r.fee = fee;
+  } else {
+    const newId = 'region_' + Date.now() + Math.floor(Math.random()*1000);
+    deliveryRegions.push({id:newId, fee, name:{uz:name, ru:name, en:name}});
+  }
+  await saveDeliveryRegions();
+  if(!selectedRegionId) selectedRegionId = deliveryRegions[0].id;
+  closeRegionForm();
+  renderAdminSettings();
+  renderCart();
+}
+async function deleteRegionAdmin(id){
+  if(!confirm(t('confirm_delete_region'))) return;
+  deliveryRegions = deliveryRegions.filter(x => x.id !== id);
+  await saveDeliveryRegions();
+  if(selectedRegionId === id) selectedRegionId = deliveryRegions[0] ? deliveryRegions[0].id : null;
+  renderAdminSettings();
+  renderCart();
+}
+async function saveAdminSettings(){
+  const price = parseInt(document.getElementById('setSubPrice').value, 10);
+  const days = parseInt(document.getElementById('setSubDays').value, 10);
+  const fee = parseInt(document.getElementById('setDeliveryFee').value, 10);
+  const cardNumber = document.getElementById('setCardNumber').value.trim();
+  const cardOwner = document.getElementById('setCardOwner').value.trim();
+  if(isNaN(price) || price < 0 || isNaN(days) || days < 1 || isNaN(fee) || fee < 0) return;
+  SUBSCRIPTION_PRICE = price; SUBSCRIPTION_DAYS = days; DELIVERY_FEE = fee;
+  PAYMENT_CARD_NUMBER = cardNumber; PAYMENT_CARD_OWNER = cardOwner;
+  await saveShopSettings();
+  renderSubscribeButton(); renderCart();
+  const msg = document.getElementById('settingsSaved');
+  msg.textContent = t('settings_saved'); msg.classList.add('show');
+  setTimeout(() => msg.classList.remove('show'), 2000);
+}
+
+/* --- Products tab --- */
+function renderAdminProducts(){
+  const body = document.getElementById('adminBody');
+  const rows = products.map(p => {
+    const stock = productStock(p);
+    const stockCls = stock <= 0 ? 'out' : (stock <= 5 ? 'low' : 'ok');
+    return `
+    <tr>
+      <td><div class="row-icon" style="background:${colorHex(p.colors && p.colors[0])}">${p.icon}</div></td>
+      <td>${p.name.uz}</td>
+      <td>${catLabel(p.cat)}</td>
+      <td class="mono">${money(p.price)}</td>
+      <td>${(p.sizes||[]).join(', ') || t('one_size')}</td>
+      <td class="mono stock-note ${stockCls}">${stock}</td>
+      <td>
+        <button class="icon-action" title="${t('edit_label')}" onclick="openProductForm(${p.id})">✏️</button>
+        <button class="icon-action" title="${t('delete_label')}" onclick="deleteProductAdmin(${p.id})">🗑</button>
+      </td>
+    </tr>`;
+  }).join('');
+  body.innerHTML = `
+    <div class="admin-toolbar">
+      <span class="count mono">${products.length}</span>
+      <button class="btn btn-primary btn-sm" onclick="openProductForm(null)">${t('add_product')}</button>
+    </div>
+    <div class="admin-form" id="productForm"></div>
+    <table class="admin-table">
+      <thead><tr><th></th><th>${t('product_name')}</th><th>${t('category_label')}</th><th>${t('price_label')}</th><th>${t('sizes_label')}</th><th>${t('stock_label')}</th><th></th></tr></thead>
+      <tbody>${rows || `<tr><td colspan="7" class="empty-admin">${t('no_products_admin')}</td></tr>`}</tbody>
+    </table>`;
+}
+let pfMainImage = null;
+let pfColorImages = {};
+function openProductForm(id){
+  editingProductId = id;
+  const p = id ? products.find(x => x.id === id) : null;
+  pfMainImage = (p && p.image) || null;
+  pfColorImages = (p && p.colorImages) ? {...p.colorImages} : {};
+  const cats = ['koylak','kurtka','krossovka','shim','aksessuar','gym','oversize'];
+  const formEl = document.getElementById('productForm');
+  formEl.classList.add('show');
+  formEl.innerHTML = `
+    <h4 style="margin-bottom:12px;">${id ? t('edit_product') : t('add_product')}</h4>
+    <div class="admin-form-grid">
+      <div class="field field-full"><label>${t('product_name')}</label><input id="pfName" value="${p ? p.name.uz.replace(/"/g,'&quot;') : ''}"></div>
+      <div class="field"><label>${t('category_label')}</label>
+        <select id="pfCat">${cats.map(c => `<option value="${c}" ${p && p.cat===c ? 'selected':''}>${t('cat_'+c)}</option>`).join('')}</select>
+      </div>
+      <div class="field"><label>${t('icon_label')}</label><input id="pfIcon" value="${p ? p.icon : '👕'}"></div>
+      <div class="field"><label>${t('price_label')}</label><input id="pfPrice" type="number" value="${p ? p.price : ''}"></div>
+      <div class="field"><label>${t('old_price_label')}</label><input id="pfOld" type="number" value="${p && p.old ? p.old : ''}"></div>
+      <div class="field"><label>${t('stock_admin_label')}</label><input id="pfStock" type="number" min="0" step="1" value="${p ? productStock(p) : 0}"></div>
+      <div class="field field-full"><label>${t('sizes_label')}</label><input id="pfSizes" value="${p ? (p.sizes||[]).join(',') : ''}"></div>
+      <div class="field field-full">
+        <label>${t('image_label')}</label>
+        <input type="file" accept="image/*" onchange="handleMainImageUpload(this)">
+        <img id="pfMainPreview" class="mini-preview" src="${pfMainImage||''}" style="${pfMainImage?'':'display:none'}">
+      </div>
+      <div class="field field-full">
+        <label>${t('colors_label')}</label>
+        <div class="color-check-list">
+          ${Object.keys(COLORS_LIB).map(k => {
+            const checked = !!(p && p.colors && p.colors.includes(k));
+            const existingImg = pfColorImages[k] || '';
+            return `
+            <div class="color-upload-item">
+              <label class="color-check">
+                <input type="checkbox" value="${k}" ${checked ? 'checked':''} onchange="toggleColorImageRow('${k}', this.checked)">
+                <span class="dot" style="background:${colorHex(k)}"></span>${colorName(k)}
+              </label>
+              <div class="color-image-upload" id="colorImgRow-${k}" style="display:${checked?'flex':'none'}">
+                <input type="file" accept="image/*" onchange="handleColorImageUpload('${k}', this)">
+                <img id="colorImgPreview-${k}" class="mini-preview" src="${existingImg}" style="${existingImg?'':'display:none'}">
+              </div>
+            </div>`;
+          }).join('')}
+        </div>
+        <p style="font-size:11px; opacity:0.55; margin-top:6px;">${t('color_image_hint')}</p>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-primary btn-sm" onclick="saveProductForm()">${t('save_btn')}</button>
+      <button class="btn btn-ghost btn-sm" onclick="closeProductForm()">${t('cancel_btn')}</button>
+    </div>`;
+  formEl.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+function toggleColorImageRow(colorKey, checked){
+  const row = document.getElementById('colorImgRow-' + colorKey);
+  if(row) row.style.display = checked ? 'flex' : 'none';
+  if(!checked) delete pfColorImages[colorKey];
+}
+function readImageFile(inputEl, onDone){
+  const file = inputEl.files && inputEl.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e => onDone(e.target.result);
+  reader.readAsDataURL(file);
+}
+function handleMainImageUpload(inputEl){
+  readImageFile(inputEl, dataUrl => {
+    pfMainImage = dataUrl;
+    const prev = document.getElementById('pfMainPreview');
+    prev.src = dataUrl; prev.style.display = 'block';
+  });
+}
+function handleColorImageUpload(colorKey, inputEl){
+  readImageFile(inputEl, dataUrl => {
+    pfColorImages[colorKey] = dataUrl;
+    const prev = document.getElementById('colorImgPreview-' + colorKey);
+    prev.src = dataUrl; prev.style.display = 'block';
+  });
+}
+function closeProductForm(){
+  editingProductId = null;
+  pfMainImage = null; pfColorImages = {};
+  const formEl = document.getElementById('productForm');
+  formEl.classList.remove('show'); formEl.innerHTML = '';
+}
+async function saveProductForm(){
+  const name = document.getElementById('pfName').value.trim();
+  const cat = document.getElementById('pfCat').value;
+  const icon = document.getElementById('pfIcon').value.trim() || '👕';
+  const price = parseInt(document.getElementById('pfPrice').value) || 0;
+  const oldVal = document.getElementById('pfOld').value;
+  const old = oldVal ? parseInt(oldVal) : undefined;
+  const stockVal = parseInt(document.getElementById('pfStock').value, 10);
+  const stock = isNaN(stockVal) || stockVal < 0 ? 0 : stockVal;
+  const sizes = document.getElementById('pfSizes').value.split(',').map(s => s.trim()).filter(Boolean);
+  const colors = Array.from(document.querySelectorAll('.color-check input:checked')).map(el => el.value);
+  const image = pfMainImage || undefined;
+  const colorImages = {};
+  colors.forEach(k => { if(pfColorImages[k]) colorImages[k] = pfColorImages[k]; });
+  if(!name || !price){ return; }
+  // Boshqa oyna/tab'da qilingan o'zgarishlarni (masalan o'chirilgan mahsulotni)
+  // ustidan bosib qo'ymaslik uchun, saqlashdan oldin ENG SO'NGGI ro'yxatni
+  // serverdan qayta olamiz.
+  await syncProductsFromServer();
+  if(editingProductId){
+    const p = products.find(x => x.id === editingProductId);
+    if(!p){ closeProductForm(); renderAdminProducts(); renderGrid(); return; }
+    Object.assign(p, {cat, icon, image, colorImages, price, old, sale: !!old, stock, sizes, colors, name:{uz:name, ru:name, en:name}});
+    if(!image) delete p.image;
+  } else {
+    const newId = products.length ? Math.max(...products.map(p=>p.id)) + 1 : 1;
+    products.push({id:newId, cat, icon, image, colorImages, price, old, sale: !!old, stock, sizes, colors, name:{uz:name, ru:name, en:name}});
+  }
+  await saveProducts();
+  closeProductForm();
+  renderAdminProducts();
+  renderGrid();
+}
+async function deleteProductAdmin(id){
+  if(!confirm(t('confirm_delete_product'))) return;
+  // Xuddi shu sabab bilan: o'chirishdan oldin eng so'nggi ro'yxatni olamiz.
+  await syncProductsFromServer();
+  products = products.filter(p => p.id !== id);
+  await saveProducts();
+  renderAdminProducts();
+  renderGrid();
+}
+
+/* --- Promo codes tab --- */
+let editingPromoId = null;
+function renderAdminPromo(){
+  const body = document.getElementById('adminBody');
+  const rows = promocodes.map(pc => `
+    <tr>
+      <td class="mono" style="font-weight:700;">${pc.code}</td>
+      <td>${pc.type === 'percent' ? t('percent_label') : t('fixed_label')}</td>
+      <td class="mono">${pc.type === 'percent' ? pc.value + '%' : money(pc.value)}</td>
+      <td>
+        <button class="mini-badge ${pc.active !== false ? 'confirmed' : 'pending'}" style="border:none; cursor:pointer;" onclick="togglePromoActive('${pc.id}')">${pc.active !== false ? t('active_label') : t('inactive_label')}</button>
+      </td>
+      <td>
+        <button class="icon-action" title="${t('edit_label')}" onclick="openPromoForm('${pc.id}')">✏️</button>
+        <button class="icon-action" title="${t('delete_label')}" onclick="deletePromoAdmin('${pc.id}')">🗑</button>
+      </td>
+    </tr>`).join('');
+  body.innerHTML = `
+    <div class="admin-toolbar">
+      <span class="count mono">${promocodes.length}</span>
+      <button class="btn btn-primary btn-sm" onclick="openPromoForm(null)">${t('add_promo')}</button>
+    </div>
+    <div class="admin-form" id="promoForm"></div>
+    <table class="admin-table">
+      <thead><tr><th>${t('promo_code_col')}</th><th>${t('promo_type_col')}</th><th>${t('promo_value_col')}</th><th>${t('promo_status_col')}</th><th></th></tr></thead>
+      <tbody>${rows || `<tr><td colspan="5" class="empty-admin">${t('no_promocodes_admin')}</td></tr>`}</tbody>
+    </table>`;
+}
+function openPromoForm(id){
+  editingPromoId = id;
+  const pc = id ? promocodes.find(x => x.id === id) : null;
+  const formEl = document.getElementById('promoForm');
+  formEl.classList.add('show');
+  formEl.innerHTML = `
+    <h4 style="margin-bottom:12px;">${id ? t('edit_promo') : t('add_promo')}</h4>
+    <div class="admin-form-grid">
+      <div class="field"><label>${t('promo_code_col')}</label><input id="pcCode" style="text-transform:uppercase;" value="${pc ? pc.code : ''}"></div>
+      <div class="field"><label>${t('promo_type_col')}</label>
+        <select id="pcType">
+          <option value="percent" ${pc && pc.type==='percent' ? 'selected':''}>${t('percent_label')}</option>
+          <option value="fixed" ${pc && pc.type==='fixed' ? 'selected':''}>${t('fixed_label')}</option>
+        </select>
+      </div>
+      <div class="field"><label>${t('promo_value_col')}</label><input id="pcValue" type="number" min="0" value="${pc ? pc.value : ''}"></div>
+      <div class="field"><label class="color-check" style="margin-top:6px;"><input type="checkbox" id="pcActive" ${!pc || pc.active !== false ? 'checked' : ''}> ${t('active_label')}</label></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-primary btn-sm" onclick="savePromoForm()">${t('save_btn')}</button>
+      <button class="btn btn-ghost btn-sm" onclick="closePromoForm()">${t('cancel_btn')}</button>
+    </div>`;
+  formEl.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+function closePromoForm(){
+  editingPromoId = null;
+  const formEl = document.getElementById('promoForm');
+  formEl.classList.remove('show'); formEl.innerHTML = '';
+}
+async function savePromoForm(){
+  const code = document.getElementById('pcCode').value.trim().toUpperCase();
+  const type = document.getElementById('pcType').value;
+  const value = parseInt(document.getElementById('pcValue').value, 10);
+  const active = document.getElementById('pcActive').checked;
+  if(!code || isNaN(value) || value < 0) return;
+  if(editingPromoId){
+    const pc = promocodes.find(x => x.id === editingPromoId);
+    Object.assign(pc, {code, type, value, active});
+  } else {
+    if(promocodes.some(x => x.code.toUpperCase() === code)) return;
+    promocodes.push({id: 'PC'+Date.now()+Math.floor(Math.random()*1000), code, type, value, active});
+  }
+  await savePromocodes();
+  closePromoForm();
+  renderAdminPromo();
+}
+async function togglePromoActive(id){
+  const pc = promocodes.find(x => x.id === id);
+  if(!pc) return;
+  pc.active = pc.active === false ? true : false;
+  await savePromocodes();
+  renderAdminPromo();
+}
+async function deletePromoAdmin(id){
+  if(!confirm(t('confirm_delete_promo'))) return;
+  promocodes = promocodes.filter(x => x.id !== id);
+  await savePromocodes();
+  renderAdminPromo();
+}
+
+/* --- Orders tab --- */
+function renderAdminOrders(){
+  const body = document.getElementById('adminBody');
+  const statuses = ['new','processing','shipped','delivered','cancelled'];
+  const rows = adminOrdersCache.map(o => `
+    <tr>
+      <td class="mono">${o.id}</td>
+      <td>${o.customerName || o.phone}<br><span style="opacity:0.5; font-size:11px;">${o.phone}</span></td>
+      <td>${new Date(o.date).toLocaleDateString()}</td>
+      <td class="mono">${money(o.total)}</td>
+      <td>${o.receiptImage ? `<img class="receipt-thumb" src="${o.receiptImage}" onclick="viewReceipt('${o.id}')" title="${t('view_receipt')}">` : `<span style="opacity:0.4; font-size:11px;">${t('no_receipt')}</span>`}</td>
+      <td>${o.paymentConfirmed
+        ? `<span class="mini-badge confirmed">${t('payment_confirmed')}</span>`
+        : `<button class="btn-sm btn btn-primary" style="padding:7px 12px;" onclick="confirmOrderPayment('${o.id}')">${t('confirm_payment_btn')}</button>`}</td>
+      <td><select class="status-select" onchange="updateOrderStatus('${o.id}', this.value)">
+        ${statuses.map(s => `<option value="${s}" ${o.status===s?'selected':''}>${t('status_'+s)}</option>`).join('')}
+      </select></td>
+      <td><button class="expand-toggle" onclick="toggleOrderDetail('${o.id}')">${expandedOrderId===o.id ? '▲' : '▼'}</button></td>
+    </tr>
+    ${expandedOrderId===o.id ? `<tr class="order-detail-row"><td colspan="8"><div class="order-detail-box">
+      ${o.items.map(it => `<div class="order-row"><span>${it.name}${it.size?' · '+it.size:''}${it.color?' · '+colorName(it.color):''} × ${it.qty}</span><span class="mono">${money(it.price*it.qty)}</span></div>`).join('')}
+      ${(o.discount||0) > 0 ? `<div class="order-row"><span>${t('discount_label')}${o.promoCode ? ' ('+o.promoCode+')' : ''}</span><span class="mono">−${money(o.discount)}</span></div>` : ''}
+      <div class="order-row"><span>${t('delivery_fee_label')}${o.deliveryRegion ? ' — '+o.deliveryRegion : ''}</span><span class="mono">${(o.deliveryFee||0) === 0 ? t('free_label') : money(o.deliveryFee)}</span></div>
+      <div style="margin-top:8px; font-size:12.5px; opacity:0.7;">${o.address || ''}</div>
+    </div></td></tr>` : ''}`).join('');
+  body.innerHTML = `
+    <div class="admin-toolbar"><span class="count mono">${adminOrdersCache.length}</span></div>
+    <table class="admin-table">
+      <thead><tr><th>${t('id_label')}</th><th>${t('customer_label')}</th><th>${t('date_label')}</th><th>${t('total_label')}</th><th>${t('view_receipt')}</th><th>${t('confirm_payment_btn')}</th><th>${t('order_status')}</th><th></th></tr></thead>
+      <tbody>${rows || `<tr><td colspan="8" class="empty-admin">${t('no_orders_admin')}</td></tr>`}</tbody>
+    </table>`;
+}
+function toggleOrderDetail(id){ expandedOrderId = expandedOrderId === id ? null : id; renderAdminOrders(); }
+async function updateOrderStatus(id, status){
+  const o = adminOrdersCache.find(x => x.id === id);
+  if(o && o.status !== status){
+    o.status = status;
+    await saveOrders(adminOrdersCache);
+    await pushNotification(o.phone, {type:'order_status', orderId:o.id, status});
+  }
+}
+function viewReceipt(id){
+  const o = adminOrdersCache.find(x => x.id === id);
+  if(!o || !o.receiptImage) return;
+  document.getElementById('receiptModalImg').src = o.receiptImage;
+  openModal('receiptModal');
+}
+async function confirmOrderPayment(id){
+  const o = adminOrdersCache.find(x => x.id === id);
+  if(!o) return;
+  o.paymentConfirmed = true;
+  if(o.status === 'new') o.status = 'processing';
+  await saveOrders(adminOrdersCache);
+  renderAdminOrders();
+  await pushNotification(o.phone, {type:'payment_confirmed', orderId:o.id});
+}
+
+/* --- Users tab --- */
+function renderAdminUsers(){
+  const body = document.getElementById('adminBody');
+  const phones = Object.keys(adminUsersCache);
+  const rows = phones.map(phone => {
+    const u = adminUsersCache[phone];
+    const orderCount = adminOrdersCache.filter(o => o.phone === phone).length;
+    const isSelf = currentUser && currentUser.phone === phone;
+    let subCell;
+    if(u.subscriptionPending){
+      subCell = `<div style="display:flex; align-items:center; gap:6px;">
+        ${u.subscriptionReceiptImage ? `<img class="receipt-thumb" src="${u.subscriptionReceiptImage}" onclick="viewSubReceipt('${phone}')" title="${t('view_receipt')}">` : ''}
+        <button class="btn-sm btn btn-primary" style="padding:7px 10px;" onclick="confirmSubscriptionRequest('${phone}')">${t('subscription_confirm_btn')}</button>
+        <button class="icon-action" title="${t('subscription_reject_btn')}" onclick="rejectSubscriptionRequest('${phone}')">✕</button>
+      </div>`;
+    } else if(subscriptionActive(u)){
+      subCell = `<span class="mini-badge confirmed">${t('payment_confirmed')}</span>`;
+    } else {
+      subCell = `<span style="opacity:0.4; font-size:11px;">—</span>`;
+    }
+    return `<tr>
+      <td>${u.name}</td>
+      <td class="mono">${u.phone}</td>
+      <td>${u.registeredAt ? new Date(u.registeredAt).toLocaleDateString() : '—'}</td>
+      <td class="mono">${orderCount}</td>
+      <td><span class="mini-badge ${u.isAdmin ? 'admin-yes' : ''}">${u.isAdmin ? t('admin_label') : '—'}</span></td>
+      <td>${subCell}</td>
+      <td>
+        <button class="icon-action" title="${u.isAdmin ? t('remove_admin') : t('make_admin')}" onclick="toggleUserAdmin('${phone}')" ${isSelf ? 'disabled style="opacity:0.25;"' : ''}>${u.isAdmin ? '⬇️' : '⬆️'}</button>
+        <button class="icon-action" title="${t('delete_label')}" onclick="deleteUserAdmin('${phone}')" ${isSelf ? 'disabled style="opacity:0.25;"' : ''}>🗑</button>
+      </td>
+    </tr>`;
+  }).join('');
+  body.innerHTML = `
+    <div class="admin-toolbar"><span class="count mono">${phones.length}</span></div>
+    <table class="admin-table">
+      <thead><tr><th>${t('name_label')}</th><th>${t('phone_label')}</th><th>${t('registered_label')}</th><th>${t('orders_count_label')}</th><th>${t('admin_label')}</th><th>${t('subscription_col_label')}</th><th></th></tr></thead>
+      <tbody>${rows || `<tr><td colspan="7" class="empty-admin">${t('no_users_admin')}</td></tr>`}</tbody>
+    </table>`;
+}
+function viewSubReceipt(phone){
+  const u = adminUsersCache[phone];
+  if(!u || !u.subscriptionReceiptImage) return;
+  document.getElementById('receiptModalImg').src = u.subscriptionReceiptImage;
+  openModal('receiptModal');
+}
+async function confirmSubscriptionRequest(phone){
+  const u = adminUsersCache[phone];
+  if(!u) return;
+  const now = new Date();
+  const expires = new Date(now.getTime() + SUBSCRIPTION_DAYS*24*60*60*1000);
+  u.isSubscribed = true;
+  u.subscribedAt = now.toISOString();
+  u.subscriptionExpiresAt = expires.toISOString();
+  u.subscriptionPending = false;
+  await saveUsers(adminUsersCache);
+  renderAdminUsers();
+  if(currentUser && currentUser.phone === phone){
+    currentUser.isSubscribed = true;
+    currentUser.subscribedAt = u.subscribedAt;
+    currentUser.subscriptionExpiresAt = u.subscriptionExpiresAt;
+    currentUser.subscriptionPending = false;
+    await storeSet('session', currentUser, false);
+    renderSubscribeButton(); renderCart();
+  }
+  await pushNotification(phone, {type:'subscription_confirmed'});
+}
+async function rejectSubscriptionRequest(phone){
+  const u = adminUsersCache[phone];
+  if(!u) return;
+  u.subscriptionPending = false;
+  delete u.subscriptionReceiptImage;
+  await saveUsers(adminUsersCache);
+  renderAdminUsers();
+  if(currentUser && currentUser.phone === phone){
+    currentUser.subscriptionPending = false;
+    await storeSet('session', currentUser, false);
+    renderSubscribeButton();
+  }
+  await pushNotification(phone, {type:'subscription_rejected'});
+}
+async function toggleUserAdmin(phone){
+  if(currentUser && currentUser.phone === phone) return;
+  adminUsersCache[phone].isAdmin = !adminUsersCache[phone].isAdmin;
+  await saveUsers(adminUsersCache);
+  renderAdminUsers();
+}
+async function deleteUserAdmin(phone){
+  if(currentUser && currentUser.phone === phone){ alert(t('cannot_delete_self')); return; }
+  if(!confirm(t('confirm_delete_user'))) return;
+  delete adminUsersCache[phone];
+  await saveUsers(adminUsersCache);
+  renderAdminUsers();
+}
+
+/* ===================== Subscription ===================== */
+let subReceiptDataUrl = null;
+function toggleSubscription(){
+  if(!currentUser){ openModal('accountModal'); return; }
+  openSubscribeModal();
+}
+function handleSubReceiptUpload(event){
+  const file = event.target.files && event.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    subReceiptDataUrl = e.target.result;
+    document.getElementById('subReceiptPreview').src = subReceiptDataUrl;
+    document.getElementById('subReceiptPreviewWrap').style.display = 'block';
+    document.getElementById('subReceiptUploadBox').style.display = 'none';
+    document.getElementById('subModalError').classList.remove('show');
+  };
+  reader.readAsDataURL(file);
+}
+function removeSubReceipt(){
+  subReceiptDataUrl = null;
+  const input = document.getElementById('subReceiptInput');
+  if(input) input.value = '';
+  const wrap = document.getElementById('subReceiptPreviewWrap');
+  const box = document.getElementById('subReceiptUploadBox');
+  if(wrap) wrap.style.display = 'none';
+  if(box) box.style.display = 'block';
+}
+async function openSubscribeModal(){
+  const users = await getUsers();
+  const u = users[currentUser.phone];
+  if(!u) return;
+  const active = subscriptionActive(u);
+  const pending = !!u.subscriptionPending;
+  document.getElementById('subModalTitle').textContent = active ? t('unsubscribe_title') : t('subscribe_title');
+  const payBlock = document.getElementById('subPayBlock');
+  const pendingNote = document.getElementById('subPendingNote');
+  const btn = document.getElementById('subModalConfirmBtn');
+  removeSubReceipt();
+  const errEl = document.getElementById('subModalError');
+  errEl.textContent = ''; errEl.classList.remove('show');
+  if(active){
+    document.getElementById('subModalDesc').textContent = t('unsubscribe_confirm');
+    payBlock.style.display = 'none';
+    pendingNote.style.display = 'none';
+    btn.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = t('unsubscribe_btn');
+    btn.onclick = confirmUnsubscribe;
+  } else if(pending){
+    document.getElementById('subModalDesc').textContent = '';
+    payBlock.style.display = 'none';
+    pendingNote.style.display = 'block';
+    btn.style.display = 'none';
+  } else {
+    document.getElementById('subModalDesc').textContent = t('subscribe_confirm').replace('{price}', money(SUBSCRIPTION_PRICE)).replace('{days}', SUBSCRIPTION_DAYS);
+    payBlock.style.display = 'block';
+    pendingNote.style.display = 'none';
+    document.getElementById('subPayCardNumber').textContent = PAYMENT_CARD_NUMBER;
+    document.getElementById('subPayCardOwner').textContent = PAYMENT_CARD_OWNER;
+    btn.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = t('subscribe_request_btn');
+    btn.onclick = confirmSubscribe;
+  }
+  openModal('subscribeModal');
+}
+async function confirmSubscribe(){
+  const errEl = document.getElementById('subModalError');
+  if(!subReceiptDataUrl){
+    errEl.textContent = t('receipt_required'); errEl.classList.add('show'); return;
+  }
+  errEl.classList.remove('show');
+  const btn = document.getElementById('subModalConfirmBtn');
+  btn.disabled = true;
+  const originalText = btn.textContent;
+  btn.textContent = '...';
+  await new Promise(r => setTimeout(r, 700)); // simulate upload
+
+  const users = await getUsers();
+  const u = users[currentUser.phone];
+  if(!u){ btn.disabled = false; btn.textContent = originalText; return; }
+  u.subscriptionPending = true;
+  u.subscriptionReceiptImage = subReceiptDataUrl;
+  u.subscriptionRequestedAt = new Date().toISOString();
+  await saveUsers(users);
+  currentUser.subscriptionPending = true;
+  await storeSet('session', currentUser, false);
+  renderSubscribeButton();
+  btn.disabled = false; btn.textContent = originalText;
+  removeSubReceipt();
+  closeAll();
+}
+async function confirmUnsubscribe(){
+  const users = await getUsers();
+  const u = users[currentUser.phone];
+  if(!u) return;
+  u.isSubscribed = false;
+  u.subscriptionExpiresAt = null;
+  await saveUsers(users);
+  currentUser.isSubscribed = false;
+  currentUser.subscriptionExpiresAt = null;
+  await storeSet('session', currentUser, false);
+  renderSubscribeButton(); renderCart();
+  closeAll();
+}
+function renderSubscribeButton(){
+  const btn = document.getElementById('subscribeBtn');
+  if(!btn) return;
+  const active = subscriptionActive(currentUser);
+  const note = document.getElementById('subDaysNote');
+  if(active){
+    btn.textContent = `${t('banner_subscribed')} · ${subscriptionDaysLeft(currentUser)} ${t('days_left_label')}`;
+    if(note) note.textContent = '';
+  } else if(currentUser && currentUser.subscriptionPending){
+    btn.textContent = t('subscribe_pending_btn');
+    if(note) note.textContent = '';
+  } else {
+    btn.textContent = `${t('banner_btn')} — ${money(SUBSCRIPTION_PRICE)}`;
+    if(note) note.textContent = t('banner_days_note').replace('{days}', SUBSCRIPTION_DAYS);
+  }
+  btn.classList.toggle('subscribed', active);
+}
+
+/* ===================== Init ===================== */
+async function ensureAdminSeed(){
+  const users = await getUsers();
+  if(!users['admin']){
+    users['admin'] = {name:'Admin', phone:'admin', pass:'admin123', isAdmin:true, registeredAt:new Date().toISOString()};
+    await saveUsers(users);
+  }
+}
+async function init(){
+  const savedLang = await storeGet('lang', false);
+  if(savedLang) lang = savedLang;
+  const session = await storeGet('session', false);
+  if(session) currentUser = session;
+  await loadProducts();
+  await loadShopSettings();
+  await loadPromocodes();
+  await loadDeliveryRegions();
+  await loadHeroBanners();
+  await ensureAdminSeed();
+  if(currentUser){
+    favorites = await getFavorites(currentUser.phone);
+    userNotifications = await getNotifications(currentUser.phone);
+  }
+  applyI18n();
+  renderGrid();
+  renderCart();
+  renderAccountArea();
+  renderFavCount();
+  renderFavPanel();
+  renderNotifArea();
+  applyHeroBanners();
+}
+init();
+setInterval(async () => {
+  if(!currentUser) return;
+  const fresh = await getNotifications(currentUser.phone);
+  if(JSON.stringify(fresh) !== JSON.stringify(userNotifications)){
+    userNotifications = fresh;
+    renderNotifArea();
+  }
+}, 8000);
+</script>
+
+</body>
+</html>
